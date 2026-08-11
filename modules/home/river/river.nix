@@ -28,7 +28,7 @@
       riverctl set-repeat 50 300
 
       # ===============================================
-      # 2. Key Bindings (Mapas)
+      # 2. Key Bindings (Keymaps)
       # ===============================================
       riverctl map normal $mod X       spawn fuzzel
       riverctl map normal $mod W       spawn qutebrowser

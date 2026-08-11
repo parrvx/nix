@@ -7,7 +7,6 @@
   };
 
   programs = {
-    # Habilita o Nushell como shell interativo
     nushell = {
       enable = true;
       configFile.text = ''
@@ -22,8 +21,6 @@
         FLAKE = "${config.home.homeDirectory}/nix";
       };
     };
-
-    # Bash de fallback
 
     zellij = {
       enable = true;
@@ -60,13 +57,6 @@
       };
     };
 
-    # tmux = {
-    #   enable = true;
-    #   keyMode = "vi";
-    #   mouse = true;
-    # };
-
-    # Navegação rápida entre diretórios com integração ao Nushell
     zoxide = {
       enable = true;
       enableNushellIntegration = true;
