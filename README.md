@@ -1,98 +1,129 @@
 # NixOS & Home Manager Configuration
 
-This repository contains my personal, declarative system and dotfiles configuration built with Nix, Flakes, and `nixos-unified`. It is designed for a fast, keyboard-centric workflow featuring a Wayland-based tiling window manager and a cohesive Matrix-inspired aesthetic.
-![wallpapper](https://github.com/parrvx/nix/blob/main/assets/wallpaper.jpg)
+This repository contains my personal, declarative system and dotfiles configuration built with Nix, Flakes, and `nixos-unified`. It is optimized for a fast, keyboard-centric workflow featuring a Wayland-based tiling window manager and a cohesive Matrix-inspired visual identity.
 
-## ✨ Key Features
+![wallpaper](assets/wallpaper.jpg)
 
-### 🖥️ Desktop & Window Management
+## Key Features
 
-* **Window Manager**: River WM (Wayland) using `rivertile` as the default layout.
+### Desktop & Window Management
+
+* **Window Manager**: River WM (Wayland) running `rivertile` as the default layout generator.
 * **Display Manager**: Ly Display Manager configured with a Matrix animation.
-* **Launcher & Menus**: Fuzzel and `wlr-which-key` for dynamic, quick-access menus (Apps, Power, Modes, Rebuilds).
-* **Notifications**: Mako, styled to match the system's dark/neon-green Matrix theme.
-* **Terminal**: Foot terminal running with a custom "Terminal Mode" script to seamlessly manage `tmux` sessions.
-* **Audio**: PipeWire with ALSA and PulseAudio compatibility. Volume is managed via `pulsemixer`.
+* **Launcher & Keymaps**: Fuzzel for application launching and `wlr-which-key` for contextual modal menus (Apps, System, Modes, Games, Nix).
+* **Keyboard Remapping**: Kanata daemon for custom modal layers (CapsLock modifiers and dedicated Numpad layer).
+* **Notifications**: Mako, styled to match the dark/neon-green Matrix visual scheme.
+* **Terminal Environment**: Foot terminal emulator configured with Nushell as the default interactive shell, integrated with Zellij multiplexer.
+* **Audio**: PipeWire with ALSA and PulseAudio compatibility, managed via `pulsemixer`.
 
-### 🛠️ Core Utilities & Apps
+### Core Utilities & Applications
 
-* **Browser**: Highly customized Qutebrowser
-* **Editor**: Fully declarative Neovim setup via NixVim, featuring the `cyberdream` theme, LSP (Rust, Nix, Haskell, Markdown), Telescope, Flash, Yazi, and Lazygit integration.
-* **File Management**: Yazi terminal file manager integrated with `ffmpeg`, `p7zip`, `poppler`, `fzf`, `mpv` (video), `imv` (images), and `zathura` (PDFs).
+* **Browser**: Customized Qutebrowser with custom keybindings and dark mode enforcement.
+* **Editor**: Helix editor bundled with LSPs (`zk`, `nil`, `marksman`, `pyright`, `rust-analyzer`, `bash-language-server`).
+* **File Management**: Yazi terminal file manager integrated with `ffmpeg`, `p7zip`, `poppler`, `fzf`, `lazygit`, `zk`, `mpv`, `imv`, and `zathura`.
 * **Chat**: Iamb (Matrix client).
-* **Office**: Gimp and LibreOffice.
-* **System Management**: `nh` (Nix Helper) for clean and efficient rebuilds and garbage collection.
+* **Office & Productivity**: LibreOffice, GIMP, Audacity, and Zathura (PDF viewer).
+* **System Helper**: `nh` (Nix Helper) for clean rebuilds and automated garbage collection.
 
-### 💻 Shell & Development
+### Development & Environments
 
-* **Shell Environment**: Bash and Zsh, supercharged with Starship prompt and Zoxide.
-* **CLI Tools**: Modern utilities including `ripgrep`, `fd`, `sd`, `fzf`, `bat`, `jq`, and `btop`.
-* **Environment management**: Direnv with `nix-direnv` for fast, automatic shell environment loading.
-* **Git**: Declarative Git and Lazygit configuration.
+* **Shell Environment**: Nushell (default shell) with `zoxide` integration for fast directory navigation.
+* **Development Shells**: Modular Nix devShells including:
+  * **Python**: Polars, DuckDB, Quarto, Node.js, and Evidence template support.
+  * **Rust**: Toolchain featuring `cargo`, `rustc`, `rust-analyzer`, `clippy`, and `rustfmt`.
+  * **WoW Server**: Native build environment for compiling AzerothCore (WotLK).
+  * **Config DevShell**: Custom automation scripts (`flake-update`, `flake-lint`, `flake-check`, `flake-run`, `flake-help`).
+* **CLI Utilities**: Modern tools including `ripgrep`, `fd`, `sd`, `bat`, `jq`, `btop`, `tmate`, `jujutsu`, `aichat`, and `zk`.
+* **Environment Automation**: Direnv paired with `nix-direnv` for automatic shell loading.
 
-## 📂 Repository Structure
+## Repository Structure
 
-The project follows the `nixos-unified` autowiring structure to organize modules and configurations.
+The project follows the `nixos-unified` autowiring structure to organize system and user configurations:
 
-```
+```text
 .
-├── assets/                 # Static files and auxiliary scripts
+├── assets/                 # Static assets and scripts
 │   ├── scripts/
-│   │   └── terminal.sh     # Script to toggle the "Terminal Mode" (Foot + Tmux)
-│   ├── .envrc              # Direnv integration to automatically load the environment
+│   │   └── terminal.sh     # Script to toggle Terminal Mode (Foot + Tmux)
 │   └── wallpaper.jpg       # Matrix-themed wallpaper
 ├── configurations/
-│   ├── home/               # User-specific Home Manager configurations
-│   │   └── parrvx.nix      # Main configuration for the 'parrvx' user
+│   ├── home/
+│   │   └── parrvx.nix      # Main Home Manager user configuration
 │   └── nixos/
-│       └── nixos/          # Host-based OS configurations
-│           ├── configuration.nix         # Global system options (boot, network, sound, locale)
-│           ├── default.nix               # System modules entry point
-│           └── hardware-configuration.nix # Automatically generated hardware settings
+│       └── nixos/          # Host-specific NixOS configuration
+│           ├── configuration.nix
+│           ├── default.nix
+│           └── hardware-configuration.nix
 ├── modules/
-│   ├── flake/              # Flake-level modules
-│   │   ├── apps/           # Declarative app configurations (Neovim, Yazi, Qutebrowser, etc.)
-│   │   ├── devshell.nix    # Development environment for working on the config (nixd, just)
-│   │   └── toplevel.nix    # Flake wiring and formatter setup
-│   ├── home/               # Home Manager modules and settings
-│   │   ├── river/          # River WM config and its ecosystem (Foot, Fuzzel, Mako, keybinds)
-│   │   ├── direnv.nix      # Direnv and nix-direnv settings
-│   │   ├── gaming.nix      # Lutris, protonup...
-│   │   ├── git.nix         # Git and Lazygit aliases and configuration
-│   │   ├── packages.nix    # User packages and terminal tools (fzf, bat, btop)
-│   │   ├── shell.nix       # Zsh, Bash, and Starship prompt configurations
-│   │   ├── me.nix          # Global user identity variables (name, email)
-│   │   └── nh.nix          # Nix Helper configuration and automatic garbage collection
+│   ├── flake/              # Flake-level modules and devShells
+│   │   ├── apps/           # Standalone package wrappers (Helix, Yazi, Qutebrowser, etc.)
+│   │   ├── develop/        # Modular devShells (Python, Rust, WoW Server, DevShell)
+│   │   └── toplevel.nix    # Flake integration and formatter definitions
+│   ├── home/               # Home Manager modules
+│   │   ├── river/          # River WM configuration ecosystem (Foot, Fuzzel, Mako, River, WLR)
+│   │   ├── direnv.nix      # Direnv and nix-direnv configuration
+│   │   ├── gaming.nix      # Gaming tools (Lutris, ProtonUp-Qt, Winetricks)
+│   │   ├── git.nix         # Declarative Git and Lazygit configuration
+│   │   ├── nh.nix          # Nix Helper and automatic garbage collection settings
+│   │   ├── packages.nix    # User CLI and GUI package declarations
+│   │   ├── shell.nix       # Nushell, Zellij, and Zoxide configurations
+│   │   └── ...             # Other user modules (mime, ssh, chromium, office, etc.)
 │   └── nixos/              # System-level (NixOS) modules
-│       ├── common/         # Shared settings, such as declarative user management
-│       ├── gui/            # Desktop environment settings (River WM enablement, GDM/Gnome, fonts)
-│       └── default.nix     # Imports main modules and enables SSH
-├── flake.nix               # Main entry point with Nix dependencies and inputs definitions
-├── flake.lock              # Lockfile pinning the exact versions of the flake dependencies
-├── justfile                # Command runner tool for shortcuts (like `just run`, `just update`)
-├── vira.hs                 # Configuration file for the CI (Continuous Integration) process
-└── README.md               # Main documentation file for the repository```
+│       ├── common/         # Shared user management settings
+│       ├── gui/            # Display server, Kanata, and WM options
+│       └── default.nix     # Core system options (zRam, GPU drivers, MySQL, Docker)
+├── flake.nix               # Main entry point with Nix inputs and system definitions
+├── flake.lock              # Lockfile pinning exact flake dependencies
+└── justfile                # Command runner shortcuts
 ```
 
-## ⌨️ Custom Keybindings (`wlr-which-key`)
+## Custom Keybindings (`wlr-which-key`)
 
-Using `wlr-which-key`, several modal menus are mapped to the `Super` key:
+Press `Super` along with the prefix key to bring up modal access menus:
 
-* **`Super + D` (Apps)**: Browser, Gimp, LibreOffice, Yazi, Neovim (Vault), Footclient, Iamb.
-* **`Super + S` (System)**: Shutdown, Reboot, Volume.
-* **`Super + M` (Modes)**: Terminal Mode (Tmux), Develop Mode, Legal Mode (PJeOffice), Volume.
-* **`Super + N` (Nix)**: Rebuild system (`nh os switch`), Garbage Collection (`nh clean all`).
+* **`Super + D` (Apps)**: Gaming (Lutris), LibreOffice, Find (Yazi), Note (Helix), Terminal (Zellij), Matrix (Iamb).
+* **`Super + S` (System)**: Shutdown, Reboot, Btop, Volume (`pulsemixer`).
+* **`Super + M` (Modes)**: Terminal Mode, Develop Mode, Even G2 Terminal, Legal Mode (PJeOffice), Volume.
+* **`Super + G` (Games & Web)**: Factorio, Google Chrome.
+* **`Super + N` (Nix)**: Test Flake (`nix flake check`), Rebuild (`nh os switch`), Garbage Collection (`nh clean all`).
 
-## 🚀 Getting Started
+## Getting Started
 
 ### Prerequisites
 
 * [Nix](https://nixos.org/download.html) installed with `flakes` and `nix-command` experimental features enabled.
-* [Just](https://github.com/casey/just) installed (optional, but recommended for easy commands).
 
-### Manual Activation
+### Quick Commands
 
-To activate the configuration manually without `just`:
+You can use the built-in development environment automation or standard `nix` commands:
+
+* **Enter DevShell**:
+
 ```bash
-nix run
+nix develop
 ```
+
+* **Update Flake Inputs**:
+
+```bash
+flake-update  # or `nix flake update`
+```
+
+* **Format Configuration Files**:
+
+```bash
+flake-lint    # or `nix fmt`
+```
+
+* **Validate Flake**:
+
+```bash
+flake-check   # or `nix flake check`
+```
+
+* **Apply Configuration**:
+
+```bash
+flake-run     # or `nix run`
+```
+
