@@ -1,0 +1,30 @@
+name: "CI - Nix Flake Validation"
+
+on:
+  pull_request:
+    branches: [ main ]
+  push:
+    branches: [ main ]
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      # 1. Checkout repository code
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # 2. Install Nix package manager on the GitHub runner
+      - name: Install Nix
+        uses: cachix/install-nix-action@v27
+        with:
+          extra_nix_config: |
+            experimental-features = nix-command flakes
+
+      # 3. Validate flake outputs, modules, and evaluation integrity
+      - name: Check Flake Evaluation
+        run: nix flake check
+
+      # 4. Enforce code style and formatting standards
+      - name: Check Code Formatting
+        run: nix run .#formatter -- --check
