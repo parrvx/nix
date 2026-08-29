@@ -12,6 +12,7 @@
     swaybg
     wl-clipboard
     wlr-which-key
+    wlr-randr
     pulsemixer
     brightnessctl
     libnotify

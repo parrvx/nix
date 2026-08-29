@@ -1,12 +1,13 @@
 # Helix configuration managed using Nix
-{ inputs, ... }:
-{
+{ inputs, ... }: {
   perSystem = { pkgs, lib, ... }:
     let
-      # 1. Creates a physical directory in the Nix Store containing config.toml and languages.toml side-by-side
+      # 1. Cria a estrutura simulando ~/.config/helix
       helixConfigDir = pkgs.runCommand "helix-config-dir" {} ''
-        mkdir -p $out
-        cat << 'EOF' > $out/config.toml
+        mkdir -p $out/helix
+        
+        # --- CONFIG.TOML ---
+        cat << 'EOF' > $out/helix/config.toml
 theme = "ayu_evolve"
 [editor]
 line-number = "relative"
@@ -27,27 +28,31 @@ display-inlay-hints = true
 [editor.file-picker]
 hidden = false
 EOF
-        cat << 'EOF' > $out/languages.toml
+
+        # --- LANGUAGES.TOML ---
+        cat << 'EOF' > $out/helix/languages.toml
 [language-server.zk]
 command = "zk"
 args = ["lsp"]
+
 [[language]]
 name = "markdown"
-language-servers = ["zk", "marksman"]
+language-servers = [ "zk" ]
+roots = [".zk", ".git"]
 EOF
       '';
-      # 2. Wrapper pointing directly to config.toml inside the folder containing both files
+
+      # 2. Wrapper utilizando XDG_CONFIG_HOME (mesma técnica do seu Zathura)
       helixWithConfig = pkgs.symlinkJoin {
         name = "helix-configured";
         paths = [ pkgs.helix ];
         nativeBuildInputs = [ pkgs.makeWrapper ];
         postBuild = ''
           wrapProgram $out/bin/hx \
-            --add-flags "--config ${helixConfigDir}/config.toml" \
+            --set XDG_CONFIG_HOME "${helixConfigDir}" \
             --prefix PATH : ${lib.makeBinPath (with pkgs; [
               zk
               nil
-              marksman
               pyright
               rust-analyzer
               bash-language-server

@@ -4,7 +4,6 @@
   config,
   ...
 }:
-
 let
   mkMenu =
     menu:
@@ -15,7 +14,7 @@ let
           background = "#000000";
           color = "#13f507";
           border = "#13f507";
-          separator = " ➜ ";
+          separator = " - ";
           border_width = 2;
           corner_r = 15;
           padding = 15;
@@ -55,8 +54,8 @@ in
         }
         {
           key = "t";
-          desc = "Terminal (zellij)";
-          cmd = "footclient -e zellij";
+          desc = "Terminal (tmux)";
+          cmd = "footclient tmux new-session -A -s main";
         }
         {
           key = "m";
@@ -80,8 +79,8 @@ in
         }
         {
           key = "t";
-          desc = "Btop";
-          cmd = "footclient -e btop";
+          desc = "Bottom";
+          cmd = "footclient -e btm";
         }
         {
           key = "v";
@@ -101,12 +100,16 @@ in
         {
           key = "d";
           desc = "Develop Mode";
-          cmd = "footclient sh -c 'cd ${config.home.homeDirectory}/nix && nix develop && cd ${config.home.homeDirectory}/zk/project'";
+          cmd = "footclient bash -c 'cd ${config.home.homeDirectory}/nix && nix develop && cd ${config.home.homeDirectory}/zk/project'";
+<<<<<<< HEAD
+        }
+=======
+>>>>>>> 1705b6d (virtualization)
         }
         {
           key = "e";
           desc = "Even G2 Terminal";
-          cmd = "footclient -e npx @evenrealities/even-terminal --provider cloud";
+          cmd = "footclient -e npx --yes @evenrealities/even-terminal --provider claude";
         }
         {
           key = "l";
@@ -127,12 +130,12 @@ in
           key = "f";
           desc = "Factorio";
           cmd = "lutris lutris:rungameid/4";
-        }        
+        }
         {
           key = "c";
           desc = "Google Chrome";
           cmd = "chromium";
-        }        
+        }
       ])
     )
     (
