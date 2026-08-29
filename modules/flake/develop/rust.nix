@@ -2,7 +2,7 @@
   perSystem = { pkgs, ... }: {
     devShells.rust = pkgs.mkShell {
       name = "rust-shell";
-             
+
       packages = with pkgs; [
         cargo
         rustc

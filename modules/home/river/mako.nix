@@ -2,7 +2,7 @@
 {
   services.mako = {
     enable = true;
-    
+
     settings = {
       default-timeout = 5000;
       border-radius = 7;
@@ -14,7 +14,7 @@
       background-color = "#000000";
       anchor = "top-right";
       font = "JetBrainsMono Nerd Font 11";
-      };
-    
+    };
+
   };
 }

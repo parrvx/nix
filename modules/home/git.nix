@@ -13,7 +13,7 @@
         user = {
           name = config.me.fullname;
           email = config.me.email;
-          };
+        };
         aliases = {
           ci = "commit";
         };

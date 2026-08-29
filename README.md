@@ -1,6 +1,6 @@
 # NixOS & Home Manager Configuration
 
-This repository contains my personal, declarative system and dotfiles configuration built with Nix, Flakes, and `nixos-unified`. It is optimized for a fast, keyboard-centric workflow featuring a Wayland-based tiling window manager and a cohesive Matrix-inspired visual identity.
+This repository contains my declarative, reproducible personal system and dotfiles configuration built with Nix, Flakes, and `nixos-unified`. It is tailored for a fast, keyboard-centric workflow featuring the River Wayland tiling window manager, a cohesive Matrix visual scheme, and secret management integrated with `sops-nix` and `passage`.
 
 ![wallpaper](assets/wallpaper.jpg)
 
@@ -8,90 +8,81 @@ This repository contains my personal, declarative system and dotfiles configurat
 
 ### Desktop & Window Management
 
-* **Window Manager**: River WM (Wayland) running `rivertile` as the default layout generator.
-* **Display Manager**: Ly Display Manager configured with a Matrix animation.
-* **Launcher & Keymaps**: Fuzzel for application launching and `wlr-which-key` for contextual modal menus (Apps, System, Modes, Games, Nix).
-* **Keyboard Remapping**: Kanata daemon for custom modal layers (CapsLock modifiers and dedicated Numpad layer).
-* **Notifications**: Mako, styled to match the dark/neon-green Matrix visual scheme.
-* **Terminal Environment**: Foot terminal emulator configured with Nushell as the default interactive shell, integrated with Zellij multiplexer.
-* **Audio**: PipeWire with ALSA and PulseAudio compatibility, managed via `pulsemixer`.
+* **Window Manager**: River WM (Wayland) using `rivertile` as the dynamic layout generator.
+* **Display Manager**: Ly Display Manager configured with an active Matrix background animation.
+* **Launcher & Menus**: Fuzzel for dynamic program execution and `wlr-which-key` for contextual keybindings and submenus (Apps, System, Modes, Games, Nix).
+* **Keyboard Remapping**: Kanata daemon driving custom modal keymaps (CapsLock modifiers, navigation, and a dedicated Numpad layer).
+* **Notifications**: Mako notification daemon styled in dark/neon-green.
+* **Terminal Suite**: Foot terminal emulator running `tmux` by default. Includes a custom toggle script (`terminal.sh`) for headless client/server terminal mode.
+* **Audio & Media**: PipeWire with ALSA/PulseAudio emulation managed via `pulsemixer`, with custom `mpv` streaming rules.
 
-### Core Utilities & Applications
+### Core Applications & Secrets
 
-* **Browser**: Customized Qutebrowser with custom keybindings and dark mode enforcement.
-* **Editor**: Helix editor bundled with LSPs (`zk`, `nil`, `marksman`, `pyright`, `rust-analyzer`, `bash-language-server`).
-* **File Management**: Yazi terminal file manager integrated with `ffmpeg`, `p7zip`, `poppler`, `fzf`, `lazygit`, `zk`, `mpv`, `imv`, and `zathura`.
-* **Chat**: Iamb (Matrix client).
-* **Office & Productivity**: LibreOffice, GIMP, Audacity, and Zathura (PDF viewer).
-* **System Helper**: `nh` (Nix Helper) for clean rebuilds and automated garbage collection.
+* **Text Editor**: Custom Helix package bundled with language servers (`zk`, `nil`, `pyright`, `rust-analyzer`, `bash-language-server`).
+* **File Management**: Yazi terminal file manager integrated with `ffmpeg`, `poppler`, `p7zip`, `fzf`, `lazygit`, `zk`, `mpv`, `imv`, and `zathura`.
+* **Browsers**: Firefox (configured with dark mode enforcement, low-RAM optimizations, uBlock Origin, and custom `userChrome.css`) and Chromium.
+* **Secrets & Passwords**: `sops-nix` with Age key encryption for system secrets, coupled with `passage` and a custom Fuzzel/Dmenu password picker (`passage-menu`).
+* **Smart Glasses Integration**: Background systemd user service executing `@evenrealities/even-terminal` for the Even Realities G2 glasses powered by Claude AI.
 
-### Development & Environments
+### Development & System Utilities
 
-* **Shell Environment**: Nushell (default shell) with `zoxide` integration for fast directory navigation.
-* **Development Shells**: Modular Nix devShells including:
-  * **Python**: Polars, DuckDB, Quarto, Node.js, and Evidence template support.
-  * **Rust**: Toolchain featuring `cargo`, `rustc`, `rust-analyzer`, `clippy`, and `rustfmt`.
-  * **WoW Server**: Native build environment for compiling AzerothCore (WotLK).
-  * **Config DevShell**: Custom automation scripts (`flake-update`, `flake-lint`, `flake-check`, `flake-run`, `flake-help`).
-* **CLI Utilities**: Modern tools including `ripgrep`, `fd`, `sd`, `bat`, `jq`, `btop`, `tmate`, `jujutsu`, `aichat`, and `zk`.
-* **Environment Automation**: Direnv paired with `nix-direnv` for automatic shell loading.
+* **Nix Implementation**: Powered by `lix` package manager for fast evaluation.
+* **Shell Environment**: Bash extended with `carapace` auto-completion, `zoxide` directory navigation, `fzf`, and modern Rust CLI tools (`eza`, `dust`, `procs`, `delta`, `hyperfine`, `sd`, `ripgrep`, `fd`, `ouch`).
+* **Modular DevShells**:
+* **Config Shell**: Built-in native scripts (`flake-update`, `flake-lint`, `flake-check`, `flake-run`, `flake-help`).
+* **Python**: Pre-configured with Polars, DuckDB, Quarto, Node.js, and Evidence template support.
+* **Rust**: Toolchain including `cargo`, `rustc`, `rust-analyzer`, `clippy`, and `rustfmt`.
+* **WoW Server**: Native build toolchain for AzerothCore (WotLK) compilation.
+* **Virtualization & Gaming**: KVM/libvirtd with SPICE USB redirection, `virt-manager`, `quickemu`, Docker, Steam/Lutris, and Linux Zen Kernel with GameMode.
+* **Nix Helper**: `nh` tool for streamlined system rebuilds and automated garbage collection.
 
 ## Repository Structure
 
-The project follows the `nixos-unified` autowiring structure to organize system and user configurations:
+The layout adheres to `nixos-unified` autowiring patterns to organize system and user configurations:
 
 ```text
 .
-├── assets/                 # Static assets and scripts
-│   ├── scripts/
-│   │   └── terminal.sh     # Script to toggle Terminal Mode (Foot + Tmux)
-│   └── wallpaper.jpg       # Matrix-themed wallpaper
-├── configurations/
-│   ├── home/
-│   │   └── parrvx.nix      # Main Home Manager user configuration
-│   └── nixos/
-│       └── nixos/          # Host-specific NixOS configuration
-│           ├── configuration.nix
-│           ├── default.nix
-│           └── hardware-configuration.nix
+├── assets/                 # Wallpaper image and helper scripts
+│   └── scripts/
+│       └── terminal.sh     # Script to toggle Foot server/client headless mode
+├── configurations/         # System and target machine definitions
+│   ├── nixos/s145/         # Host-specific NixOS configuration (Lenovo S145)
+│   ├── nix-on-droid/droid/ # Android/Termux configuration via nix-on-droid
+│   └── user/parrvx.nix     # User identity and sops settings
 ├── modules/
-│   ├── flake/              # Flake-level modules and devShells
-│   │   ├── apps/           # Standalone package wrappers (Helix, Yazi, Qutebrowser, etc.)
-│   │   ├── develop/        # Modular devShells (Python, Rust, WoW Server, DevShell)
-│   │   └── toplevel.nix    # Flake integration and formatter definitions
+│   ├── flake/              # Flake outputs, wrappers, and devShells
+│   │   ├── apps/           # Custom program wrappers (Helix, Yazi, Zathura, Iamb)
+│   │   └── develop/        # Modular devShells (Python, Rust, AzerothCore, Shell)
 │   ├── home/               # Home Manager modules
-│   │   ├── river/          # River WM configuration ecosystem (Foot, Fuzzel, Mako, River, WLR)
-│   │   ├── direnv.nix      # Direnv and nix-direnv configuration
-│   │   ├── gaming.nix      # Gaming tools (Lutris, ProtonUp-Qt, Winetricks)
-│   │   ├── git.nix         # Declarative Git and Lazygit configuration
-│   │   ├── nh.nix          # Nix Helper and automatic garbage collection settings
-│   │   ├── packages.nix    # User CLI and GUI package declarations
-│   │   ├── shell.nix       # Nushell, Zellij, and Zoxide configurations
-│   │   └── ...             # Other user modules (mime, ssh, chromium, office, etc.)
-│   └── nixos/              # System-level (NixOS) modules
-│       ├── common/         # Shared user management settings
-│       ├── gui/            # Display server, Kanata, and WM options
-│       └── default.nix     # Core system options (zRam, GPU drivers, MySQL, Docker)
-├── flake.nix               # Main entry point with Nix inputs and system definitions
-├── flake.lock              # Lockfile pinning exact flake dependencies
-└── justfile                # Command runner shortcuts
+│   │   ├── river/          # River WM setup (fuzzel, foot, mako, wlr-which-key)
+│   │   ├── even.nix        # Even Realities G2 Glasses service
+│   │   ├── firefox.nix     # Customized Firefox browser profile
+│   │   └── packages.nix    # User-level CLI and GUI packages
+│   └── nixos/              # System-level NixOS modules
+│       ├── common/         # Tailscale, virtualization, and user options
+│       └── gui/            # River WM, Ly DM, and Kanata keymapping
+├── secrets/                # SOPS encrypted yaml files
+├── flake.nix               # Entry point defining inputs and systems
+├── flake.lock              # Dependency lockfile
+└── justfile                # Shortcut command runner
 ```
 
 ## Custom Keybindings (`wlr-which-key`)
 
-Press `Super` along with the prefix key to bring up modal access menus:
+Press `Super + Key` to open contextual modal menus:
 
-* **`Super + D` (Apps)**: Gaming (Lutris), LibreOffice, Find (Yazi), Note (Helix), Terminal (Zellij), Matrix (Iamb).
-* **`Super + S` (System)**: Shutdown, Reboot, Btop, Volume (`pulsemixer`).
-* **`Super + M` (Modes)**: Terminal Mode, Develop Mode, Even G2 Terminal, Legal Mode (PJeOffice), Volume.
+* **`Super + D` (Apps)**: Launch Gaming (`lutris`), LibreOffice, File Manager (`yazi`), Notes (`helix`), Terminal (`tmux`), Matrix Client (`iamb`).
+* **`Super + S` (System)**: Poweroff, Reboot, Process Monitor (`bottom`), Volume (`pulsemixer`).
+* **`Super + M` (Modes)**: Toggle Terminal Mode, Enter Config DevShell, Even G2 Glasses Terminal, Legal Mode (PJeOffice).
 * **`Super + G` (Games & Web)**: Factorio, Google Chrome.
-* **`Super + N` (Nix)**: Test Flake (`nix flake check`), Rebuild (`nh os switch`), Garbage Collection (`nh clean all`).
+* **`Super + N` (Nix)**: Test Flake (`nix flake check`), System Switch (`nh os switch`), Garbage Collector (`nh clean all`).
 
 ## Getting Started
 
 ### Prerequisites
 
-* [Nix](https://nixos.org/download.html) installed with `flakes` and `nix-command` experimental features enabled.
+* [Nix](https://nixos.org/download.html) with `flakes` and `nix-command` experimental features enabled.
+* `sops` and `age` installed if decrypting system secrets.
 
 ### Quick Commands
 
@@ -126,4 +117,3 @@ flake-check   # or `nix flake check`
 ```bash
 flake-run     # or `nix run`
 ```
-

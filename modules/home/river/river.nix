@@ -1,4 +1,20 @@
-{ config, ... }:
+{ config, pkgs, ... }:
+
+# Custom Passage menu script utilizing native clipboard flag (-c)
+let
+  passageMenu = pkgs.writeShellScriptBin "passage-menu" ''
+    export PASSAGE_AGE_KEY_FILE="$HOME/.config/sops/age/keys.txt"
+    export PASSAGE_DIR="$HOME/.passage"
+
+    # Export essential dependencies to script PATH
+    export PATH="${pkgs.lib.makeBinPath [ pkgs.passage pkgs.fuzzel pkgs.wl-clipboard pkgs.libnotify pkgs.findutils pkgs.gnused ]}:$PATH"
+    SECRET=$(find "$PASSAGE_DIR" -type f -name "*.age" | sed "s|^$PASSAGE_DIR/||; s|\.age$||" | fuzzel --dmenu -p "  Passage: ")
+    if [ -n "$SECRET" ]; then
+      passage -c "$SECRET"
+      notify-send "Passage" "Password for '$SECRET' copied to clipboard!"
+    fi
+  '';
+in
 {
   wayland.windowManager.river = {
     enable = true;
@@ -10,49 +26,99 @@
     };
     extraConfig = ''
       mod="Mod4"
-
+      # =========================================================================
+      # 1. BACKGROUND SERVICES
+      # =========================================================================
       riverctl spawn "swaybg -i ${config.home.homeDirectory}/nix/assets/wallpaper.jpg -m fill"
-      riverctl spawn "bash ${config.home.homeDirectory}/nix/assets/scripts/terminal.sh"
 
+      # =========================================================================
+      # 2. TAG BINDING RULES
+      # =========================================================================
+      riverctl rule-add -app-id "firefox" tags 2
+
+      # =========================================================================
+      # 3. AUTOSTART SEQUENCING
+      # =========================================================================
+      riverctl spawn 'bash -c "
+        foot --server &
+        sleep 0.5
+        if wlr-randr | grep -q \"HDMI-A-1\"; then
+          riverctl focus-output eDP-1
+          riverctl set-focused-tags 1
+          footclient --app-id btm-foot -e btm &
+          sleep 0.8
+          riverctl focus-output HDMI-A-1
+          riverctl set-focused-tags 1
+          footclient tmux new-session -A -s main &
+          sleep 0.8
+          riverctl set-focused-tags 2
+          chromium &
+          sleep 1.2
+          riverctl focus-output HDMI-A-1
+          riverctl set-focused-tags 2
+        else
+          riverctl focus-output eDP-1
+          riverctl set-focused-tags 1
+          footclient tmux new-session -A -s main &
+          sleep 0.5
+          riverctl set-focused-tags 2
+          chromium &
+          sleep 0.8
+          riverctl set-focused-tags 4
+          footclient --app-id btm-foot -e btm &
+          sleep 0.5
+          riverctl set-focused-tags 2
+        fi
+      "'
+
+      # =========================================================================
+      # 4. INPUT DEVICES & BEHAVIOR
+      # =========================================================================
       riverctl input pointer-1267-228-Elan_Touchpad tap enabled
-
       riverctl attach-mode bottom
-
       riverctl focus-follows-cursor disabled
       riverctl hide-cursor when-typing enabled
       riverctl hide-cursor timeout 5000
-
-      # riverctl keyboard-layout -variant intl -options caps:escape us
-      # riverctl keyboard-layout -options caps:escape br
       riverctl keyboard-layout br
       riverctl set-repeat 50 300
 
-      # ===============================================
-      # 2. Key Bindings (Keymaps)
-      # ===============================================
-      riverctl map normal $mod X       spawn fuzzel
-      riverctl map normal $mod W       spawn qutebrowser
-      riverctl map normal $mod+Shift P spawn "$HOME/.config/scripts/k3y-pass.sh"
+      # =========================================================================
+      # 5. KEYBINDINGS
+      # =========================================================================
+      riverctl map normal $mod X spawn fuzzel
+      riverctl map normal $mod W spawn firefox
       riverctl map normal $mod+Shift S spawn 'grim -g "$(slurp)" - | wl-copy'
       riverctl map normal $mod+Shift R spawn '~/.config/river/init'
       riverctl map normal $mod+Alt = spawn 'pulsemixer --change-volume +5'
       riverctl map normal $mod+Alt - spawn 'pulsemixer --change-volume -5'
       riverctl map normal $mod+Alt 0 spawn 'pulsemixer --toggle-mute'
-      riverctl map normal Super+Shift Return spawn footclient
+      riverctl map normal Super+Shift Return spawn 'footclient tmux new-session -A -s main'
+      
+      # Passage secret generator mapping
+      riverctl map normal $mod+Shift P spawn '${passageMenu}/bin/passage-menu'
+      
       riverctl map normal Super C close
+
+      # View focus and window movement
       riverctl map normal Super J focus-view next
       riverctl map normal Super K focus-view previous
       riverctl map normal Super+Shift J swap next
       riverctl map normal Super+Shift K swap previous
+
+      # Monitor focus and view movement
       riverctl map normal Super Period focus-output next
       riverctl map normal Super Comma focus-output previous
       riverctl map normal Super+Shift Period send-to-output next
       riverctl map normal Super+Shift Comma send-to-output previous
+
+      # Layout and zoom control
       riverctl map normal Super Return zoom
       riverctl map normal Super H send-layout-cmd rivertile "main-ratio -0.05"
       riverctl map normal Super L send-layout-cmd rivertile "main-ratio +0.05"
       riverctl map normal Super+Shift H send-layout-cmd rivertile "main-count +1"
       riverctl map normal Super+Shift L send-layout-cmd rivertile "main-count -1"
+
+      # Floating window movement and snap
       riverctl map normal Super+Alt H move left 100
       riverctl map normal Super+Alt J move down 100
       riverctl map normal Super+Alt K move up 100
@@ -65,88 +131,73 @@
       riverctl map normal Super+Alt+Shift J resize vertical 100
       riverctl map normal Super+Alt+Shift K resize vertical -100
       riverctl map normal Super+Alt+Shift L resize horizontal 100
+
+      # Mouse bindings
       riverctl map-pointer normal Super BTN_LEFT move-view
       riverctl map-pointer normal Super BTN_RIGHT resize-view
       riverctl map-pointer normal Super BTN_MIDDLE toggle-float
 
+      # Dynamic Tag Mapping (1 to 9)
       for i in $(seq 1 9)
       do
           tags=$((1 << ($i - 1)))
-
-          # Super+[1-9] to focus tag [0-8]
           riverctl map normal Super $i set-focused-tags $tags
-
-          # Super+Shift+[1-9] to tag focused view with tag [0-8]
           riverctl map normal Super+Shift $i set-view-tags $tags
-
-          # Super+Control+[1-9] to toggle focus of tag [0-8]
           riverctl map normal Super+Control $i toggle-focused-tags $tags
-
-          # Super+Shift+Control+[1-9] to toggle tag [0-8] of focused view
           riverctl map normal Super+Shift+Control $i toggle-view-tags $tags
       done
-
       all_tags=$(((1 << 32) - 1))
       riverctl map normal Super 0 set-focused-tags $all_tags
       riverctl map normal Super+Shift 0 set-view-tags $all_tags
+
+      # Window layout modes
       riverctl map normal Super Space toggle-float
       riverctl map normal Super F toggle-fullscreen
       riverctl map normal Super Up    send-layout-cmd rivertile "main-location top"
       riverctl map normal Super Right send-layout-cmd rivertile "main-location right"
       riverctl map normal Super Down  send-layout-cmd rivertile "main-location bottom"
       riverctl map normal Super Left  send-layout-cmd rivertile "main-location left"
+
+      # Passthrough Mode
       riverctl declare-mode passthrough
       riverctl map normal Super F11 enter-mode passthrough
       riverctl map passthrough Super F11 enter-mode normal
 
+      # Media and Brightness controls
       for mode in normal locked
       do
-          # Eject the optical drive (well if you still have one that is)
           riverctl map $mode None XF86Eject spawn 'eject -T'
-
-          # # Control pulse audio volume with pamixer (https://github.com/cdemoulins/pamixer)
-          # riverctl map $mode None XF86AudioRaiseVolume  spawn 'pamixer -i 5'
-          # riverctl map $mode None XF86AudioLowerVolume  spawn 'pamixer -d 5'
-          # riverctl map $mode None XF86AudioMute         spawn 'pamixer --toggle-mute'
-
-          # Control MPRIS aware media players with playerctl (https://github.com/altdesktop/playerctl)
           riverctl map $mode None XF86AudioMedia spawn 'playerctl play-pause'
           riverctl map $mode None XF86AudioPlay  spawn 'playerctl play-pause'
           riverctl map $mode None XF86AudioPrev  spawn 'playerctl previous'
           riverctl map $mode None XF86AudioNext  spawn 'playerctl next'
-
-          # Control screen backlight brightness with brightnessctl (https://github.com/Hummer12007/brightnessctl)
           riverctl map $mode None XF86MonBrightnessUp   spawn 'brightnessctl set +5%'
           riverctl map $mode None XF86MonBrightnessDown spawn 'brightnessctl set 5%-'
       done
 
-      # Set background and border color
+      # =========================================================================
+      # 6. MATRIX COLOR THEME & NATIVE WINDOW RULES
+      # =========================================================================
       riverctl background-color 0x000000
       riverctl border-color-focused 0x18f005
       riverctl border-color-unfocused 0x000000
-
-      # Make all views with an app-id that starts with "float" and title "foo" start floating.
       riverctl rule-add -app-id 'float*' -title 'foo' float
-
-      # Make all views with app-id "bar" and any title use client-side decorations
       riverctl rule-add -app-id "bar" csd
       riverctl rule-add -app-id "org.pwmt.zathura" csd
       riverctl rule-add -app-id "zathura" csd
 
-      # Set the default layout generator to be rivertile and start it.
-      # River will send the process group of the init executable SIGTERM on exit.
+      # Rivertile layout generator setup
       riverctl default-layout rivertile
       rivertile -view-padding 0 -outer-padding 0 &
     '';
   };
-  # ref: https://codeberg.org/river/wiki#user-content-how-do-i-disable-gtk-decorations-e-g-title-bar
+
+  # Disable redundant GTK window decorations under Wayland
   xdg.configFile."gtk-3.0/gtk.css".text = ''
-    /* No (default) title bar on wayland */
     headerbar.default-decoration {
       margin-bottom: 50px;
       margin-top: -100px;
     }
-    /* rm -rf window shadows */
     window.csd,
     window.csd decoration {
       box-shadow: none;
