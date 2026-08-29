@@ -1,5 +1,8 @@
-{ config, pkgs, ... }:
 {
+  config,
+  pkgs,
+  ...
+}: {
   home.sessionVariables = {
     EDITOR = "hx";
     VISUAL = "hx";
@@ -16,6 +19,10 @@
         PS1='\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
         source <(carapace _carapace bash)
       '';
+    };
+
+    carapace = {
+      enable = true;
     };
 
     zoxide = {

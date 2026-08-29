@@ -1,5 +1,4 @@
-{ config, ... }:
-{
+{config, ...}: {
   home.shellAliases = {
     g = "git";
     lg = "lazygit";
@@ -18,9 +17,8 @@
           ci = "commit";
         };
       };
-      ignores = [ "*~" "*.swp" ];
+      ignores = ["*~" "*.swp"];
     };
     lazygit.enable = true;
   };
-
 }

@@ -1,5 +1,5 @@
 {
-  perSystem = { pkgs, ... }: {
+  perSystem = {pkgs, ...}: {
     devShells.rust = pkgs.mkShell {
       name = "rust-shell";
 

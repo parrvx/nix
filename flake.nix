@@ -28,10 +28,17 @@
       url = "github:nix-community/nix-index-database";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    treefmt-nix = {
+      url = "github:numtide/treefmt-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   # Wired using https://nixos-unified.org/guide/autowiring
   outputs = inputs:
     inputs.nixos-unified.lib.mkFlake
-      { inherit inputs; root = ./.; };
+    {
+      inherit inputs;
+      root = ./.;
+    };
 }

@@ -1,5 +1,4 @@
-{ pkgs, ... }:
-{
+{pkgs, ...}: {
   hardware.uinput.enable = true;
   services.kanata = {
     enable = true;
@@ -29,7 +28,7 @@
           ;; 2. MODIFIERS LAYER (Active only WHILE holding CapsLock)
           ;; =========================================================================
           (deflayer mods
-            _ 
+            _
             (layer-switch numpad) ;; Caps + Q: Jumps to numpad layer and LOCKS there
             lmet lalt lctl lsft
             _ _ _ _ _ _ _
@@ -40,7 +39,7 @@
           ;; 3. NUMPAD LAYER (Extended and locked numeric matrix)
           ;; =========================================================================
           (deflayer numpad
-            _ 
+            _
             (layer-switch base)   ;; Pressing Caps + Q here UNLOCKS and returns to base!
             _ _ _ _
             kp/ kp* kp- kp7 kp8 kp9 kp+

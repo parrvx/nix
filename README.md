@@ -8,33 +8,33 @@ This repository contains my declarative, reproducible personal system and dotfil
 
 ### Desktop & Window Management
 
-* **Window Manager**: River WM (Wayland) using `rivertile` as the dynamic layout generator.
-* **Display Manager**: Ly Display Manager configured with an active Matrix background animation.
-* **Launcher & Menus**: Fuzzel for dynamic program execution and `wlr-which-key` for contextual keybindings and submenus (Apps, System, Modes, Games, Nix).
-* **Keyboard Remapping**: Kanata daemon driving custom modal keymaps (CapsLock modifiers, navigation, and a dedicated Numpad layer).
-* **Notifications**: Mako notification daemon styled in dark/neon-green.
-* **Terminal Suite**: Foot terminal emulator running `tmux` by default. Includes a custom toggle script (`terminal.sh`) for headless client/server terminal mode.
-* **Audio & Media**: PipeWire with ALSA/PulseAudio emulation managed via `pulsemixer`, with custom `mpv` streaming rules.
+- **Window Manager**: River WM (Wayland) using `rivertile` as the dynamic layout generator.
+- **Display Manager**: Ly Display Manager configured with an active Matrix background animation.
+- **Launcher & Menus**: Fuzzel for dynamic program execution and `wlr-which-key` for contextual keybindings and submenus (Apps, System, Modes, Games, Nix).
+- **Keyboard Remapping**: Kanata daemon driving custom modal keymaps (CapsLock modifiers, navigation, and a dedicated Numpad layer).
+- **Notifications**: Mako notification daemon styled in dark/neon-green.
+- **Terminal Suite**: Foot terminal emulator running `tmux` by default. Includes a custom toggle script (`terminal.sh`) for headless client/server terminal mode.
+- **Audio & Media**: PipeWire with ALSA/PulseAudio emulation managed via `pulsemixer`, with custom `mpv` streaming rules.
 
 ### Core Applications & Secrets
 
-* **Text Editor**: Custom Helix package bundled with language servers (`zk`, `nil`, `pyright`, `rust-analyzer`, `bash-language-server`).
-* **File Management**: Yazi terminal file manager integrated with `ffmpeg`, `poppler`, `p7zip`, `fzf`, `lazygit`, `zk`, `mpv`, `imv`, and `zathura`.
-* **Browsers**: Firefox (configured with dark mode enforcement, low-RAM optimizations, uBlock Origin, and custom `userChrome.css`) and Chromium.
-* **Secrets & Passwords**: `sops-nix` with Age key encryption for system secrets, coupled with `passage` and a custom Fuzzel/Dmenu password picker (`passage-menu`).
-* **Smart Glasses Integration**: Background systemd user service executing `@evenrealities/even-terminal` for the Even Realities G2 glasses powered by Claude AI.
+- **Text Editor**: Custom Helix package bundled with language servers (`zk`, `nil`, `pyright`, `rust-analyzer`, `bash-language-server`).
+- **File Management**: Yazi terminal file manager integrated with `ffmpeg`, `poppler`, `p7zip`, `fzf`, `lazygit`, `zk`, `mpv`, `imv`, and `zathura`.
+- **Browsers**: Firefox (configured with dark mode enforcement, low-RAM optimizations, uBlock Origin, and custom `userChrome.css`) and Chromium.
+- **Secrets & Passwords**: `sops-nix` with Age key encryption for system secrets, coupled with `passage` and a custom Fuzzel/Dmenu password picker (`passage-menu`).
+- **Smart Glasses Integration**: Background systemd user service executing `@evenrealities/even-terminal` for the Even Realities G2 glasses powered by Claude AI.
 
 ### Development & System Utilities
 
-* **Nix Implementation**: Powered by `lix` package manager for fast evaluation.
-* **Shell Environment**: Bash extended with `carapace` auto-completion, `zoxide` directory navigation, `fzf`, and modern Rust CLI tools (`eza`, `dust`, `procs`, `delta`, `hyperfine`, `sd`, `ripgrep`, `fd`, `ouch`).
-* **Modular DevShells**:
-* **Config Shell**: Built-in native scripts (`flake-update`, `flake-lint`, `flake-check`, `flake-run`, `flake-help`).
-* **Python**: Pre-configured with Polars, DuckDB, Quarto, Node.js, and Evidence template support.
-* **Rust**: Toolchain including `cargo`, `rustc`, `rust-analyzer`, `clippy`, and `rustfmt`.
-* **WoW Server**: Native build toolchain for AzerothCore (WotLK) compilation.
-* **Virtualization & Gaming**: KVM/libvirtd with SPICE USB redirection, `virt-manager`, `quickemu`, Docker, Steam/Lutris, and Linux Zen Kernel with GameMode.
-* **Nix Helper**: `nh` tool for streamlined system rebuilds and automated garbage collection.
+- **Nix Implementation**: Powered by `lix` package manager for fast evaluation.
+- **Shell Environment**: Bash extended with `carapace` auto-completion, `zoxide` directory navigation, `fzf`, and modern Rust CLI tools (`dust`, `delta`, `hyperfine`, `sd`, `ripgrep`, `fd`, `ouch`).
+- **Modular DevShells**:
+- **Config Shell**: Built-in native scripts (`flake-update`, `flake-lint`, `flake-check`, `flake-run`, `flake-help`).
+- **Python**: Pre-configured with Polars, DuckDB, Quarto, Node.js, and Evidence template support.
+- **Rust**: Toolchain including `cargo`, `rustc`, `rust-analyzer`, `clippy`, and `rustfmt`.
+- **WoW Server**: Native build toolchain for AzerothCore (WotLK) compilation.
+- **Virtualization & Gaming**: KVM/libvirtd with SPICE USB redirection, `virt-manager`, `quickemu`, Docker, Steam/Lutris, and Linux Zen Kernel with GameMode.
+- **Nix Helper**: `nh` tool for streamlined system rebuilds and automated garbage collection.
 
 ## Repository Structure
 
@@ -71,48 +71,48 @@ The layout adheres to `nixos-unified` autowiring patterns to organize system and
 
 Press `Super + Key` to open contextual modal menus:
 
-* **`Super + D` (Apps)**: Launch Gaming (`lutris`), LibreOffice, File Manager (`yazi`), Notes (`helix`), Terminal (`tmux`), Matrix Client (`iamb`).
-* **`Super + S` (System)**: Poweroff, Reboot, Process Monitor (`bottom`), Volume (`pulsemixer`).
-* **`Super + M` (Modes)**: Toggle Terminal Mode, Enter Config DevShell, Even G2 Glasses Terminal, Legal Mode (PJeOffice).
-* **`Super + G` (Games & Web)**: Factorio, Google Chrome.
-* **`Super + N` (Nix)**: Test Flake (`nix flake check`), System Switch (`nh os switch`), Garbage Collector (`nh clean all`).
+- **`Super + D` (Apps)**: Launch Gaming (`lutris`), LibreOffice, File Manager (`yazi`), Notes (`helix`), Terminal (`tmux`), Matrix Client (`iamb`).
+- **`Super + S` (System)**: Poweroff, Reboot, Process Monitor (`bottom`), Volume (`pulsemixer`).
+- **`Super + M` (Modes)**: Toggle Terminal Mode, Enter Config DevShell, Even G2 Glasses Terminal, Legal Mode (PJeOffice).
+- **`Super + G` (Games & Web)**: Factorio, Google Chrome.
+- **`Super + N` (Nix)**: Test Flake (`nix flake check`), System Switch (`nh os switch`), Garbage Collector (`nh clean all`).
 
 ## Getting Started
 
 ### Prerequisites
 
-* [Nix](https://nixos.org/download.html) with `flakes` and `nix-command` experimental features enabled.
-* `sops` and `age` installed if decrypting system secrets.
+- [Nix](https://nixos.org/download.html) with `flakes` and `nix-command` experimental features enabled.
+- `sops` and `age` installed if decrypting system secrets.
 
 ### Quick Commands
 
 You can use the built-in development environment automation or standard `nix` commands:
 
-* **Enter DevShell**:
+- **Enter DevShell**:
 
 ```bash
 nix develop
 ```
 
-* **Update Flake Inputs**:
+- **Update Flake Inputs**:
 
 ```bash
 flake-update  # or `nix flake update`
 ```
 
-* **Format Configuration Files**:
+- **Format Configuration Files**:
 
 ```bash
 flake-lint    # or `nix fmt`
 ```
 
-* **Validate Flake**:
+- **Validate Flake**:
 
 ```bash
 flake-check   # or `nix flake check`
 ```
 
-* **Apply Configuration**:
+- **Apply Configuration**:
 
 ```bash
 flake-run     # or `nix run`

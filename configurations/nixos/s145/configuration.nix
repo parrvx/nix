@@ -1,5 +1,8 @@
-{ config, pkgs, ... }:
 {
+  config,
+  pkgs,
+  ...
+}: {
   networking.hostName = "s145";
 
   # Enable networking
@@ -36,18 +39,27 @@
   users.users.parrvx = {
     isNormalUser = true;
     description = "parrvx";
-    extraGroups = [ "networkmanager" "wheel" "video" "docker" ];
+    extraGroups = ["networkmanager" "wheel" "video" "docker"];
     hashedPasswordFile = config.sops.secrets.user_password.path;
   };
 
   # Passwordless sudo for rebuild automation scripts
   security.sudo.extraRules = [
     {
-      users = [ "parrvx" ];
+      users = ["parrvx"];
       commands = [
-        { command = "/run/current-system/sw/bin/nixos-rebuild"; options = [ "NOPASSWD" ]; }
-        { command = "/nix/store/*/bin/nix-env"; options = [ "NOPASSWD" ]; }
-        { command = "/run/current-system/sw/bin/nix-env"; options = [ "NOPASSWD" ]; }
+        {
+          command = "/run/current-system/sw/bin/nixos-rebuild";
+          options = ["NOPASSWD"];
+        }
+        {
+          command = "/nix/store/*/bin/nix-env";
+          options = ["NOPASSWD"];
+        }
+        {
+          command = "/run/current-system/sw/bin/nix-env";
+          options = ["NOPASSWD"];
+        }
       ];
     }
   ];

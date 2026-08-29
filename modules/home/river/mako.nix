@@ -1,5 +1,4 @@
-{ ... }:
-{
+{...}: {
   services.mako = {
     enable = true;
 
@@ -15,6 +14,5 @@
       anchor = "top-right";
       font = "JetBrainsMono Nerd Font 11";
     };
-
   };
 }

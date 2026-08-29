@@ -1,32 +1,29 @@
-{ pkgs
-, lib
-, config
-, ...
-}:
-let
-  mkMenu =
-    menu:
-    let
-      configFile = pkgs.writeText "config.yaml" (
-        lib.generators.toYAML { } {
-          anchor = "center";
-          background = "#000000";
-          color = "#13f507";
-          border = "#13f507";
-          separator = " - ";
-          border_width = 2;
-          corner_r = 15;
-          padding = 15;
-          rows_per_column = 5;
-          inherit menu;
-        }
-      );
-    in
+{
+  pkgs,
+  lib,
+  config,
+  ...
+}: let
+  mkMenu = menu: let
+    configFile = pkgs.writeText "config.yaml" (
+      lib.generators.toYAML {} {
+        anchor = "center";
+        background = "#000000";
+        color = "#13f507";
+        border = "#13f507";
+        separator = " - ";
+        border_width = 2;
+        corner_r = 15;
+        padding = 15;
+        rows_per_column = 5;
+        inherit menu;
+      }
+    );
+  in
     pkgs.writeShellScriptBin "my-menu" ''
       exec ${lib.getExe pkgs.wlr-which-key} ${configFile}
     '';
-in
-{
+in {
   wayland.windowManager.river.settings.map.normal = [
     (
       "Super D spawn "
@@ -102,9 +99,14 @@ in
           cmd = "footclient bash -c 'cd ${config.home.homeDirectory}/nix && nix develop && cd ${config.home.homeDirectory}/zk/project'";
         }
         {
+          key = "o";
+          desc = "Toggle Ollama (IA)";
+          cmd = "bash ${config.home.homeDirectory}/nix/assets/scripts/ollama-toggle.sh";
+        }
+        {
           key = "e";
-          desc = "Even G2 Terminal";
-          cmd = "footclient -e npx --yes @evenrealities/even-terminal --provider claude";
+          desc = "Even G2 Terminal (Start/Stop)";
+          cmd = "bash -c 'if systemctl --user is-active --quiet even-terminal; then systemctl --user stop even-terminal && notify-send \"Even Terminal\" \"Desativado\"; else systemctl --user start even-terminal && notify-send \"Even Terminal\" \"Ativado\"; fi'";
         }
         {
           key = "l";

@@ -1,7 +1,10 @@
 # modules/nixos/common/virtualization.nix
 # Virtualization environment setup for running Windows/Linux VMs with hardware acceleration (KVM)
-{ pkgs, config, ... }:
 {
+  pkgs,
+  config,
+  ...
+}: {
   # 1. Enable libvirtd daemon for virtual machine management
   virtualisation.libvirtd = {
     enable = true;

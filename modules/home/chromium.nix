@@ -1,10 +1,8 @@
-{ pkgs, ... }:
-
-{
+{pkgs, ...}: {
   programs.chromium = {
     enable = true;
-    package = pkgs.chromium.override { enableWideVine = true; };
-    extensions = [ ];
+    package = pkgs.chromium.override {enableWideVine = true;};
+    extensions = [];
     commandLineArgs = [
       "--process-per-site"
       "--disable-background-networking"

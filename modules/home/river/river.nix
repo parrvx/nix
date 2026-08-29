@@ -1,5 +1,8 @@
-{ config, pkgs, ... }:
-
+{
+  config,
+  pkgs,
+  ...
+}:
 # Custom Passage menu script utilizing native clipboard flag (-c)
 let
   passageMenu = pkgs.writeShellScriptBin "passage-menu" ''
@@ -7,15 +10,14 @@ let
     export PASSAGE_DIR="$HOME/.passage"
 
     # Export essential dependencies to script PATH
-    export PATH="${pkgs.lib.makeBinPath [ pkgs.passage pkgs.fuzzel pkgs.wl-clipboard pkgs.libnotify pkgs.findutils pkgs.gnused ]}:$PATH"
+    export PATH="${pkgs.lib.makeBinPath [pkgs.passage pkgs.fuzzel pkgs.wl-clipboard pkgs.libnotify pkgs.findutils pkgs.gnused]}:$PATH"
     SECRET=$(find "$PASSAGE_DIR" -type f -name "*.age" | sed "s|^$PASSAGE_DIR/||; s|\.age$||" | fuzzel --dmenu -p "  Passage: ")
     if [ -n "$SECRET" ]; then
       passage -c "$SECRET"
       notify-send "Passage" "Password for '$SECRET' copied to clipboard!"
     fi
   '';
-in
-{
+in {
   wayland.windowManager.river = {
     enable = true;
     extraSessionVariables = {
@@ -93,10 +95,10 @@ in
       riverctl map normal $mod+Alt - spawn 'pulsemixer --change-volume -5'
       riverctl map normal $mod+Alt 0 spawn 'pulsemixer --toggle-mute'
       riverctl map normal Super+Shift Return spawn 'footclient tmux new-session -A -s main'
-      
+
       # Passage secret generator mapping
       riverctl map normal $mod+Shift P spawn '${passageMenu}/bin/passage-menu'
-      
+
       riverctl map normal Super C close
 
       # View focus and window movement

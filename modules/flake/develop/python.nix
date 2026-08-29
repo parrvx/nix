@@ -1,5 +1,5 @@
 {
-  perSystem = { pkgs, ... }: {
+  perSystem = {pkgs, ...}: {
     devShells.python = pkgs.mkShell {
       name = "python-shell";
       meta.description = "Shell environment for Python Development";
@@ -11,10 +11,11 @@
       ];
       nativeBuildInputs = with pkgs; [
         quarto
-        (python313.withPackages (ps: with ps; [
-          polars
-          duckdb
-        ]))
+        (python313.withPackages (ps:
+          with ps; [
+            polars
+            duckdb
+          ]))
         nodejs
         pkg-config
         stdenv.cc
@@ -27,7 +28,7 @@
       ];
       shellHook = ''
         # Vital for PyArrow and Polars to locate system libraries in Nix
-        export LD_LIBRARY_PATH="${pkgs.lib.makeLibraryPath [ pkgs.stdenv.cc.cc.lib pkgs.zlib pkgs.libxml2 ]}:$LD_LIBRARY_PATH"
+        export LD_LIBRARY_PATH="${pkgs.lib.makeLibraryPath [pkgs.stdenv.cc.cc.lib pkgs.zlib pkgs.libxml2]}:$LD_LIBRARY_PATH"
         echo "To create your Evidence project, simply run in the terminal:"
         echo "npx degit evidence-dev/template my-project"
         echo "cd my-project"

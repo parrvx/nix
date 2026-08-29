@@ -1,13 +1,15 @@
-{ pkgs, flake, ... }:
-
 {
-  home.packages = with pkgs; with flake.inputs.self.packages.${pkgs.system}; [
+  pkgs,
+  flake,
+  ...
+}: {
+  home.packages = with pkgs;
+  with flake.inputs.self.packages.${pkgs.system}; [
     omnix
     ripgrep
     fd
     sd
     zk
-    jujutsu
     aichat
     ouch
     anki
@@ -18,16 +20,11 @@
     nodejs
 
     # Completions & Prompts
-    carapace
 
     # Rust Terminal Utilities
-    eza
-    dust
-    procs
     delta
     bandwhich
     hyperfine
-    grex
     onefetch
     gh
     yt-dlp

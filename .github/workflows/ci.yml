@@ -2,9 +2,9 @@ name: "CI - Nix Flake Validation"
 
 on:
   pull_request:
-    branches: [ main ]
+    branches: [main]
   push:
-    branches: [ main ]
+    branches: [main]
 
 jobs:
   check:
@@ -27,4 +27,4 @@ jobs:
 
       # 4. Enforce code style and formatting standards
       - name: Check Code Formatting
-        run: nix run .#formatter -- --check
+        run: nix fmt -- --ci

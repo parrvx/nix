@@ -1,6 +1,4 @@
-{ pkgs, ... }:
-{
-
+{pkgs, ...}: {
   programs.river-classic = {
     enable = true;
     xwayland.enable = true;
@@ -18,7 +16,7 @@
     libnotify
   ];
 
-  fonts.packages = with pkgs;[
+  fonts.packages = with pkgs; [
     nerd-fonts.jetbrains-mono
     libertine
   ];
@@ -29,5 +27,4 @@
       settings.animation = "matrix";
     };
   };
-
 }

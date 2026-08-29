@@ -1,13 +1,15 @@
-{ flake, pkgs, ... }:
-
 {
+  flake,
+  pkgs,
+  ...
+}: {
   # Linux Zen Kernel for enhanced gaming and high memory usage responsiveness
   boot.kernelPackages = pkgs.linuxPackages_zen;
 
-  networking.firewall.allowedTCPPorts = [ 3724 8085 22000 3456 ];
+  networking.firewall.allowedTCPPorts = [3724 8085 22000 3456];
 
   services = {
-    xserver.videoDrivers = [ "amdgpu" ];
+    xserver.videoDrivers = ["amdgpu"];
     openssh.enable = true;
   };
 
@@ -20,10 +22,12 @@
     memoryPercent = 100;
   };
 
-  swapDevices = [{
-    device = "/var/lib/swapfile";
-    size = 8 * 1024; # 8 GB
-  }];
+  swapDevices = [
+    {
+      device = "/var/lib/swapfile";
+      size = 8 * 1024; # 8 GB
+    }
+  ];
 
   boot.kernel.sysctl = {
     # Prevent system stalls when writing large data volumes to disk
@@ -43,4 +47,12 @@
   };
 
   virtualisation.docker.enable = true;
+
+  # =========================================================================
+  # 2. OLLAMA
+  # =========================================================================
+  services.ollama = {
+    enable = false;
+    package = pkgs.ollama-rocm;
+  };
 }
