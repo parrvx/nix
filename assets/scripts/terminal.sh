@@ -1,32 +1,20 @@
 #!/usr/bin/env bash
 # ==========================================
-# Terminal Mode (k3r1n9) - Toggle
+# Terminal Mode (k3r1n9) - Toggle Script
 # ==========================================
-# Check if the Foot server is already running
+set -euo pipefail
+
 if pgrep -f "foot --server" > /dev/null; then
     # --- TURN OFF ---
-         
-    # Terminate the graphical server (closes the window visually)
-    pkill -f "foot --server"
-         
-    # Terminate the Tmux server (kills the sessions)
-    # Important: This ensures that 'checkhealth' and background processes don't consume RAM.
-    pkill -f "tmux"
+    pkill -f "footclient tmux" 2>/dev/null || true
+    pkill -f "foot --server" 2>/dev/null || true
+    
     notify-send "Terminal Mode" "Disabled"
 else
     # --- TURN ON ---
-         
-    # Start the Foot server in the background
-    foot --server &
-         
-    # Technical pause (0.2s) to ensure the server socket is successfully created
+    nohup foot --server >/dev/null 2>&1 &
     sleep 0.2
-          
-    # Open footclient running Tmux
-    # 'new-session -A -s k3r1n9': 
-    # 1. '-s k3r1n9': Names the session "k3r1n9".
-    # 2. '-A': If session "k3r1n9" already exists (running in background), attach to it. If not, create a new one.
-    # footclient tmux new-session -A -s k3r1n9 &
-         
+    nohup footclient tmux new-session -A -s k3r1n9 >/dev/null 2>&1 &
+    
     notify-send "Terminal Mode" "Enabled (Tmux)"
 fi

@@ -10,6 +10,6 @@ in
   imports = [
     self.nixosModules.default
     self.nixosModules.gui
-    ./configuration.nix
+    inputs.sops-nix.nixosModules.sops
   ];
 }

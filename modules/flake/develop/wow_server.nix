@@ -6,17 +6,17 @@
 
       # Native build inputs needed for compiling AzerothCore
       packages = with pkgs; [
-              git
-              cmake
-              gnumake
-              clang
-              openssl
-              bzip2
-              readline
-              zlib
-              boost
-              mysql80
-              pkg-config
+        git
+        cmake
+        gnumake
+        clang
+        openssl
+        bzip2
+        readline
+        zlib
+        boost
+        mysql80
+        pkg-config
       ];
 
       shellHook = ''

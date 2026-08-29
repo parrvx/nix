@@ -3,7 +3,8 @@
 {
   home.packages = with pkgs; [
     gimp
-    libreoffice
+    obsidian
+    libreoffice-fresh
     audacity
   ];
 }

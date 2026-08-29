@@ -53,8 +53,8 @@
 
         # Include both standard development utilities and our custom automation tools
         packages = with pkgs; [
-          nixd        # Nix language server for IDE integration
-          
+          nixd # Nix language server for IDE integration
+
           # Custom local commands
           flakeUpdate
           flakeLint
