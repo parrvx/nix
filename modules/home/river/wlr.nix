@@ -150,8 +150,8 @@ in {
         }
         {
           key = "c";
-          desc = "Collect (Garbage)";
-          cmd = "foot -e nh clean all";
+          desc = "Clean";
+          cmd = "foot -e bash -c 'rm -rf ${config.home.homeDirectory}/.local/share/Trash/files/* ${config.home.homeDirectory}/.local/share/Trash/info/* && nh clean all'";
         }
       ])
     )
