@@ -100,18 +100,23 @@ in {
         }
         {
           key = "o";
-          desc = "Toggle Ollama (IA)";
+          desc = "Ollama Mode";
           cmd = "bash ${config.home.homeDirectory}/nix/assets/scripts/ollama-toggle.sh";
         }
         {
           key = "e";
-          desc = "Even G2 Terminal (Start/Stop)";
+          desc = "Even Mode";
           cmd = "bash -c 'if systemctl --user is-active --quiet even-terminal; then systemctl --user stop even-terminal && notify-send \"Even Terminal\" \"Desativado\"; else systemctl --user start even-terminal && notify-send \"Even Terminal\" \"Ativado\"; fi'";
         }
         {
           key = "l";
           desc = "Legal Mode";
           cmd = "steam-run bash ${config.home.homeDirectory}/Documents/pje/pjeoffice-pro.sh";
+        }
+        {
+          key = "g";
+          desc = "Graph Mode";
+          cmd = "bash ${config.home.homeDirectory}/nix/assets/scripts/metrics-toggle.sh";
         }
         {
           key = "v";

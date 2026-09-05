@@ -1,11 +1,18 @@
-{config, ...}: {
-  sops.secrets.grafana_secret_key = {
-    owner = "grafana";
-  };
+{
+  config,
+  pkgs,
+  ...
+}: {
+  sops.secrets.grafana_secret_key = {};
+  environment.systemPackages = with pkgs; [
+    grafana
+    prometheus
+    prometheus-node-exporter
+  ];
 
   services = {
     prometheus = {
-      enable = true;
+      enable = false;
       port = 9090;
       scrapeConfigs = [
         {
@@ -18,14 +25,14 @@
         }
       ];
       exporters.node = {
-        enable = true;
+        enable = false;
         enabledCollectors = ["systemd" "diskstats" "meminfo" "cpu"];
         port = 9100;
       };
     };
 
     grafana = {
-      enable = true;
+      enable = false;
 
       settings = {
         server = {

@@ -60,6 +60,18 @@
           command = "/run/current-system/sw/bin/nix-env";
           options = ["NOPASSWD"];
         }
+        {
+          command = "/run/current-system/sw/bin/systemctl stop grafana prometheus prometheus-node-exporter";
+          options = ["NOPASSWD"];
+        }
+        {
+          command = "/run/current-system/sw/bin/systemctl start prometheus-node-exporter prometheus grafana";
+          options = ["NOPASSWD"];
+        }
+        {
+          command = "/run/current-system/sw/bin/chmod 644 /run/secrets/grafana_secret_key";
+          options = ["NOPASSWD"];
+        }
       ];
     }
   ];
