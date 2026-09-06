@@ -14,14 +14,12 @@
     treefmt = {
       projectRootFile = "flake.nix";
 
-      # Ative os formatadores desejados
       programs = {
-        alejandra.enable = true; # Formatação oficial/moderna de Nix
-        prettier.enable = true; # Formatação de JSON, YAML, Markdown, etc.
-        shfmt.enable = true; # Formatação de scripts Shell
+        alejandra.enable = true;
+        prettier.enable = true;
+        shfmt.enable = true;
       };
     };
-    # Enables 'nix run' to activate.
     packages.default = self'.packages.activate;
   };
 }

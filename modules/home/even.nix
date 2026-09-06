@@ -3,7 +3,7 @@
   config,
   ...
 }: {
-  # Declarar as secrets no SOPS
+  # Declare SOPS secrets
   sops.secrets.even_terminal_token = {};
   sops.secrets.anthropic_api_key = {};
 

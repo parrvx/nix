@@ -7,7 +7,7 @@
   }: let
     tomlFormat = pkgs.formats.toml {};
 
-    # 1. Configurações em TOML geradas nativamente pelo Nix
+    # 1. TOML configurations generated natively by Nix
     configToml = tomlFormat.generate "config.toml" {
       theme = "ayu_evolve";
       editor = {
@@ -60,14 +60,14 @@
       ];
     };
 
-    # 2. Estrutura XDG_CONFIG_HOME gerada no Nix Store
+    # 2. XDG_CONFIG_HOME structure generated in the Nix Store
     helixConfigDir = pkgs.runCommand "helix-config-dir" {} ''
       mkdir -p $out/helix
       cp ${configToml} $out/helix/config.toml
       cp ${languagesToml} $out/helix/languages.toml
     '';
 
-    # 3. Wrapper estendendo o PATH com os LSPs
+    # 3. Wrapper extending PATH with LSPs
     helixWithConfig = pkgs.symlinkJoin {
       name = "helix-configured";
       paths = [pkgs.helix];

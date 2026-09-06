@@ -35,6 +35,20 @@
         "browser.newtabpage.activity-stream.showSponsoredTopSites" = false;
         "browser.newtabpage.activity-stream.feeds.section.topstories" = false;
         "browser.newtabpage.activity-stream.feeds.snippets" = false;
+
+        # --- 4. DISABLE PICTURE-IN-PICTURE (PiP) ---
+        "media.videocontrols.picture-in-picture.video-toggle.enabled" = false;
+        "media.videocontrols.picture-in-picture.display-text-tracks.enabled" = false;
+        "media.videocontrols.picture-in-picture.urlbar-button.enabled" = false;
+
+        #--- 5. ADDITIONAL EXTREME CPU/RAM SAVINGS ---
+        "browser.tabs.hoverPreview.enabled" = false;
+        "network.prefetch-next" = false;
+        "network.dns.disablePrefetch" = true;
+        "network.predictor.enabled" = false;
+        "toolkit.cosmeticAnimations.enabled" = false;
+        "browser.cache.disk.enable" = true;
+        "browser.cache.memory.max_entry_size" = 5120;
       };
 
       # Minimal userChrome.css styling
