@@ -34,6 +34,7 @@
     myyazi
     myiamb
     myhelix
+    mynvim
   ];
 
   programs = {

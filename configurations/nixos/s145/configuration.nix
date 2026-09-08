@@ -39,6 +39,7 @@
   users.users.parrvx = {
     isNormalUser = true;
     description = "parrvx";
+    shell = pkgs.nushell;
     extraGroups = ["networkmanager" "wheel" "video" "docker"];
     hashedPasswordFile = config.sops.secrets.user_password.path;
   };

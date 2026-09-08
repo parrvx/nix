@@ -12,27 +12,39 @@
   };
 
   programs = {
-    bash = {
+    nushell = {
       enable = true;
-      enableCompletion = true;
-      initExtra = ''
-        PS1='\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
-        source <(carapace _carapace bash)
+      configFile.text = ''
+        $env.config = {
+          show_banner: false
+          keybindings: [
+            {
+              name: fzf_files
+              modifier: control
+              keycode: char_t
+              mode: [emacs, vi_normal, vi_insert]
+              event: {
+                send: executehostcommand
+                cmd: "commandline edit --insert (fd --type f | fzf)"
+              }
+            }
+          ]
+        }
       '';
     };
 
     carapace = {
       enable = true;
+      enableNushellIntegration = true;
     };
 
     zoxide = {
       enable = true;
-      enableBashIntegration = true;
+      enableNushellIntegration = true;
     };
 
     fzf = {
       enable = true;
-      enableBashIntegration = true;
     };
 
     tmux = {
@@ -43,6 +55,7 @@
       baseIndex = 1;
       escapeTime = 0;
       extraConfig = ''
+        set -g default-shell ${pkgs.nushell}/bin/nu
         set -g default-terminal "xterm-256color"
         set -ga terminal-overrides ",xterm-256color:Tc"
         set -g status-position top
