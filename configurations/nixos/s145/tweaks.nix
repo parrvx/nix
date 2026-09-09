@@ -33,7 +33,7 @@
     # Prevent system stalls when writing large data volumes to disk
     "vm.dirty_background_ratio" = 5;
     "vm.dirty_ratio" = 10;
-    "vm.vfs_cache_pressure" = 50;
+    "vm.vfs_cache_pressure" = 100;
   };
 
   # Enable GameMode to optimize CPU governor during execution
@@ -46,7 +46,13 @@
     enable32Bit = true;
   };
 
-  virtualisation.docker.enable = true;
+  virtualisation.docker = {
+    enable = true;
+    autoPrune = {
+      enable = true;
+      dates = "weekly";
+    };
+  };
 
   # =========================================================================
   # 2. OLLAMA

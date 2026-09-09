@@ -20,11 +20,12 @@
         "browser.theme.toolbar-theme" = 0;
 
         # --- 2. RAM & CPU OPTIMIZATIONS ---
-        "dom.ipc.processCount" = 2;
+        "dom.ipc.processCount" = 1;
+        "dom.ipc.processCount.webIsolated" = 1;
         "browser.tabs.unloadOnLowMemory" = true;
         "gfx.webrender.all" = true;
         "media.hardware-video-decoding.enabled" = true;
-        "browser.sessionstore.interval" = 60000;
+        "browser.sessionstore.interval" = 120000;
 
         # --- 3. UI CUSTOMIZATIONS & TELEMETRY DISABLEMENT ---
         "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
@@ -48,7 +49,7 @@
         "network.predictor.enabled" = false;
         "toolkit.cosmeticAnimations.enabled" = false;
         "browser.cache.disk.enable" = true;
-        "browser.cache.memory.max_entry_size" = 5120;
+        "browser.cache.memory.max_entry_size" = 2048;
       };
 
       # Minimal userChrome.css styling

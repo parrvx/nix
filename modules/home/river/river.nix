@@ -31,7 +31,7 @@ in {
       # =========================================================================
       # 1. BACKGROUND SERVICES
       # =========================================================================
-      riverctl spawn "swaybg -i ${config.home.homeDirectory}/nix/assets/wallpaper.jpg -m fill"
+      # riverctl spawn "swaybg -i ${config.home.homeDirectory}/nix/assets/wallpaper.jpg -m fill"
 
       # =========================================================================
       # 2. TAG BINDING RULES
