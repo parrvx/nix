@@ -12,16 +12,19 @@
     zk
     aichat
     ouch
+    vim
     anki
     cachix
     nil
     nix-info
     nixpkgs-fmt
     nodejs
+    termdown
 
     # Completions & Prompts
 
     # Rust Terminal Utilities
+    dust
     delta
     bandwhich
     hyperfine
@@ -34,7 +37,7 @@
     myyazi
     myiamb
     myhelix
-    mynvim
+    # mynvim
   ];
 
   programs = {

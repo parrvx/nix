@@ -32,6 +32,8 @@ in {
       # 1. BACKGROUND SERVICES
       # =========================================================================
       # riverctl spawn "swaybg -i ${config.home.homeDirectory}/nix/assets/wallpaper.jpg -m fill"
+      riverctl spawn "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=river"
+      riverctl spawn "systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
 
       # =========================================================================
       # 2. TAG BINDING RULES

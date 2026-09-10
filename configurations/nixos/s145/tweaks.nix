@@ -47,7 +47,7 @@
   };
 
   virtualisation.docker = {
-    enable = true;
+    enable = false;
     autoPrune = {
       enable = true;
       dates = "weekly";

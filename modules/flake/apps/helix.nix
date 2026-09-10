@@ -46,7 +46,7 @@
       language = [
         {
           name = "markdown";
-          language-servers = ["zk" "pyright" "nil"];
+          language-servers = ["zk"];
           roots = [".zk" ".git"];
         }
         {
