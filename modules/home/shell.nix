@@ -33,14 +33,35 @@
       '';
     };
 
+    bash = {
+      enable = true;
+      shellAliases = {
+        nu = "nu";
+        c = "clear";
+        l = "ls -la";
+        ll = "ls -l";
+        ".." = "cd ..";
+        "..." = "cd ../..";
+        rb = "nh os switch ~/nix";
+        nconf = "hx ~/nix";
+        nt = "hx ~/zk";
+        nfmt = "cd ~/nix && nix fmt && nix flake check && git add .";
+        gs = "git status";
+        gp = "git push";
+        z = "zoxide";
+      };
+    };
+
     carapace = {
       enable = true;
       enableNushellIntegration = true;
+      enableBashIntegration = true;
     };
 
     zoxide = {
       enable = true;
       enableNushellIntegration = true;
+      enableBashIntegration = true;
     };
 
     fzf = {
@@ -55,7 +76,7 @@
       baseIndex = 1;
       escapeTime = 0;
       extraConfig = ''
-        set -g default-shell ${pkgs.nushell}/bin/nu
+        # set -g default-shell ${pkgs.nushell}/bin/nu
         set -g default-terminal "xterm-256color"
         set -ga terminal-overrides ",xterm-256color:Tc"
         set -g status-position top

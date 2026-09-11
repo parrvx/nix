@@ -22,5 +22,4 @@
   '';
 
   android-integration.termux-setup-storage.enable = true;
-  user.shell = "${pkgs.nushell}/bin/nu";
 }
