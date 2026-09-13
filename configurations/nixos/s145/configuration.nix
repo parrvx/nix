@@ -40,6 +40,7 @@
     isNormalUser = true;
     description = "parrvx";
     extraGroups = ["networkmanager" "wheel" "video" "docker"];
+    shell = pkgs.nushell;
     hashedPasswordFile = config.sops.secrets.user_password.path;
   };
 

@@ -134,6 +134,16 @@ in {
           cmd = "lutris lutris:rungameid/4";
         }
         {
+          key = "n";
+          desc = "Nvidia";
+          cmd = "gamescope -f -w 1920 -h 1080 -- flatpak run io.github.hmlendea.geforcenow-electron ";
+        }
+        {
+          key = "d";
+          desc = "Door Kickers";
+          cmd = "/home/parrvx/Games/gog/door-kickers/game/start-nix.sh";
+        }
+        {
           key = "c";
           desc = "Google Chrome";
           cmd = "chromium";

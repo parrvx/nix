@@ -14,10 +14,10 @@
   programs = {
     nushell = {
       enable = true;
-      configFile.text = ''
-        $env.config = {
-          show_banner: false
-          keybindings: [
+      extraConfig = ''
+        $env.config.show_banner = false
+        $env.config.keybindings = (
+          $env.config.keybindings? | default [] | append [
             {
               name: fzf_files
               modifier: control
@@ -29,7 +29,7 @@
               }
             }
           ]
-        }
+        )
       '';
     };
 
@@ -54,7 +54,7 @@
 
     carapace = {
       enable = true;
-      enableNushellIntegration = true;
+      enableNushellIntegration = false;
       enableBashIntegration = true;
     };
 
@@ -76,7 +76,7 @@
       baseIndex = 1;
       escapeTime = 0;
       extraConfig = ''
-        # set -g default-shell ${pkgs.nushell}/bin/nu
+        set -g default-shell ${pkgs.nushell}/bin/nu
         set -g default-terminal "xterm-256color"
         set -ga terminal-overrides ",xterm-256color:Tc"
         set -g status-position top

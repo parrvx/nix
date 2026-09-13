@@ -12,5 +12,6 @@
     protonup-qt
     winetricks
     vkd3d
+    gamescope
   ];
 }

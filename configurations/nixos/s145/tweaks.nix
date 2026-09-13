@@ -11,6 +11,7 @@
   services = {
     xserver.videoDrivers = ["amdgpu"];
     openssh.enable = true;
+    flatpak.enable = true;
   };
 
   # =========================================================================
