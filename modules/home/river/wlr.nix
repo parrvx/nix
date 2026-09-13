@@ -134,6 +134,11 @@ in {
           cmd = "lutris lutris:rungameid/4";
         }
         {
+          key = "d";
+          desc = "Door Kickers";
+          cmd = "/home/parrvx/Games/gog/door-kickers/game/start-nix.sh";
+        }
+        {
           key = "c";
           desc = "Google Chrome";
           cmd = "chromium";
