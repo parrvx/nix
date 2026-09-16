@@ -22,7 +22,7 @@
     fd
     sd
     zk
-    jujutsu
+    # jujutsu
     aichat
     ouch
     vim
@@ -49,8 +49,8 @@
     myzathura
     myyazi
     myiamb
-    myhelix
-    # mynvim
+    # myhelix
+    mynvim
   ];
 
   programs = {

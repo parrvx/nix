@@ -46,7 +46,7 @@ in {
         {
           key = "n";
           desc = "Note (Helix)";
-          cmd = "footclient bash -c 'cd ${config.home.homeDirectory}/zk; hx .'";
+          cmd = "footclient bash -c 'cd ${config.home.homeDirectory}/zk; vim .'";
         }
         {
           key = "t";

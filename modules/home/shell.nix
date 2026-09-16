@@ -4,47 +4,25 @@
   ...
 }: {
   home.sessionVariables = {
-    EDITOR = "hx";
-    VISUAL = "hx";
+    EDITOR = "nvim";
+    VISUAL = "nvim";
     NH_FLAKE = "${config.home.homeDirectory}/nix";
     FLAKE = "${config.home.homeDirectory}/nix";
     SOPS_AGE_KEY_FILE = "${config.home.homeDirectory}/.config/sops/age/keys.txt";
   };
 
   programs = {
-    nushell = {
-      enable = true;
-      extraConfig = ''
-        $env.config.show_banner = false
-        $env.config.keybindings = (
-          $env.config.keybindings? | default [] | append [
-            {
-              name: fzf_files
-              modifier: control
-              keycode: char_t
-              mode: [emacs, vi_normal, vi_insert]
-              event: {
-                send: executehostcommand
-                cmd: "commandline edit --insert (fd --type f | fzf)"
-              }
-            }
-          ]
-        )
-      '';
-    };
-
     bash = {
       enable = true;
       shellAliases = {
-        nu = "nu";
         c = "clear";
         l = "ls -la";
         ll = "ls -l";
         ".." = "cd ..";
         "..." = "cd ../..";
         rb = "nh os switch ~/nix";
-        nconf = "hx ~/nix";
-        nt = "hx ~/zk";
+        nconf = "nvim ~/nix";
+        nt = "nvim ~/zk";
         nfmt = "cd ~/nix && nix fmt && nix flake check && git add .";
         gs = "git status";
         gp = "git push";
@@ -76,7 +54,7 @@
       baseIndex = 1;
       escapeTime = 0;
       extraConfig = ''
-        set -g default-shell ${pkgs.nushell}/bin/nu
+        set -g default-shell ${pkgs.bash}/bin/bash
         set -g default-terminal "xterm-256color"
         set -ga terminal-overrides ",xterm-256color:Tc"
         set -g status-position top
