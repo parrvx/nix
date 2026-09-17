@@ -17,6 +17,7 @@
       shellAliases = {
         c = "clear";
         l = "ls -la";
+        yz = "yazi";
         ll = "ls -l";
         ".." = "cd ..";
         "..." = "cd ../..";
