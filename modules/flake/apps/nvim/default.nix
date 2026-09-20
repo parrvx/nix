@@ -6,7 +6,7 @@
   }: let
     nvimConfigDir = pkgs.stdenv.mkDerivation {
       name = "nvim-config";
-      src = ./omerxx;
+      src = ./config;
       installPhase = ''
         mkdir -p $out/nvim
         cp -r init.lua lua $out/nvim/
@@ -28,6 +28,7 @@
           pyright
           gopls
           yamlfmt
+          zk
         ])}
       '';
       meta = {mainProgram = "nvim";};

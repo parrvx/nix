@@ -4,8 +4,8 @@
   ...
 }: {
   home.sessionVariables = {
-    EDITOR = "nvim";
-    VISUAL = "nvim";
+    EDITOR = "hx";
+    VISUAL = "hx";
     NH_FLAKE = "${config.home.homeDirectory}/nix";
     FLAKE = "${config.home.homeDirectory}/nix";
     SOPS_AGE_KEY_FILE = "${config.home.homeDirectory}/.config/sops/age/keys.txt";
@@ -15,18 +15,15 @@
     bash = {
       enable = true;
       shellAliases = {
-        c = "clear";
         l = "ls -la";
         yz = "yazi";
-        ll = "ls -l";
+        lg = "lazygit";
+        v = "hx";
         ".." = "cd ..";
         "..." = "cd ../..";
         rb = "nh os switch ~/nix";
-        nconf = "nvim ~/nix";
-        nt = "nvim ~/zk";
+        nconf = "hx ~/nix";
         nfmt = "cd ~/nix && nix fmt && nix flake check && git add .";
-        gs = "git status";
-        gp = "git push";
         z = "zoxide";
       };
     };
@@ -35,12 +32,14 @@
       enable = true;
       enableNushellIntegration = false;
       enableBashIntegration = true;
+      enableZshIntegration = true;
     };
 
     zoxide = {
       enable = true;
       enableNushellIntegration = true;
       enableBashIntegration = true;
+      enableZshIntegration = true;
     };
 
     fzf = {

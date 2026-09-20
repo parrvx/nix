@@ -49,7 +49,7 @@
     myzathura
     myyazi
     myiamb
-    # myhelix
+    myhelix
     mynvim
   ];
 
