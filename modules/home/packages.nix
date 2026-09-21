@@ -8,6 +8,7 @@
     # Binários diretos
     duckdb
     typst
+    ollama-rocm
 
     # Python com as bibliotecas globais
     (python313.withPackages (ps:
@@ -26,6 +27,7 @@
     aichat
     ouch
     vim
+    vis
     anki
     cachix
     nil

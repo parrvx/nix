@@ -1,15 +1,10 @@
-{
-  flake,
-  pkgs,
-  ...
-}: {
+{pkgs, ...}: {
   # Linux Zen Kernel for enhanced gaming and high memory usage responsiveness
   boot.kernelPackages = pkgs.linuxPackages_zen;
 
   networking.firewall.allowedTCPPorts = [3724 8085 22000 3456];
 
   services = {
-    xserver.videoDrivers = ["amdgpu"];
     openssh.enable = true;
     flatpak.enable = true;
   };
@@ -61,5 +56,12 @@
   services.ollama = {
     enable = false;
     package = pkgs.ollama-rocm;
+  };
+  # =========================================================================
+  # 3. Extra
+  # =========================================================================
+  hardware.bluetooth = {
+    enable = false;
+    powerOnBoot = false;
   };
 }

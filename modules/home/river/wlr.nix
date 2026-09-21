@@ -41,22 +41,22 @@ in {
         {
           key = "f";
           desc = "Find (Yazi)";
-          cmd = "footclient -e yazi";
+          cmd = "foot -e yazi";
         }
         {
           key = "n";
           desc = "Note (Helix)";
-          cmd = "footclient bash -c 'cd ${config.home.homeDirectory}/zk; vim .'";
+          cmd = "foot bash -c 'cd ${config.home.homeDirectory}/zk; vim .'";
         }
         {
           key = "t";
           desc = "Terminal (tmux)";
-          cmd = "footclient tmux new-session -A -s main";
+          cmd = "foot tmux new-session -A -s main";
         }
         {
           key = "m";
           desc = "Matrix (Iamb)";
-          cmd = "footclient -e iamb";
+          cmd = "foot -e iamb";
         }
       ])
     )
@@ -76,12 +76,12 @@ in {
         {
           key = "t";
           desc = "Bottom";
-          cmd = "footclient -e btm";
+          cmd = "foot -e btm";
         }
         {
           key = "v";
           desc = "Volume";
-          cmd = "footclient pulsemixer";
+          cmd = "foot pulsemixer";
         }
       ])
     )
@@ -96,7 +96,7 @@ in {
         {
           key = "d";
           desc = "Develop Mode";
-          cmd = "footclient bash -c 'cd ${config.home.homeDirectory}/nix && nix develop && cd ${config.home.homeDirectory}/zk/project'";
+          cmd = "foot bash -c 'cd ${config.home.homeDirectory}/nix && nix develop && cd ${config.home.homeDirectory}/zk/project'";
         }
         {
           key = "o";
@@ -121,7 +121,7 @@ in {
         {
           key = "v";
           desc = "Volume";
-          cmd = "footclient pulsemixer";
+          cmd = "foot pulsemixer";
         }
       ])
     )

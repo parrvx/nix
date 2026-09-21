@@ -44,16 +44,14 @@ in {
       # 3. AUTOSTART SEQUENCING
       # =========================================================================
       riverctl spawn 'bash -c "
-        foot --server &
-        sleep 0.5
         if wlr-randr | grep -q \"HDMI-A-1\"; then
           riverctl focus-output eDP-1
           riverctl set-focused-tags 1
-          footclient --app-id btm-foot -e btm &
+          foot --app-id btm-foot -e btm &
           sleep 0.8
           riverctl focus-output HDMI-A-1
           riverctl set-focused-tags 1
-          footclient tmux new-session -A -s main &
+          foot tmux new-session -A -s main &
           sleep 0.8
           riverctl set-focused-tags 2
           chromium &
@@ -63,13 +61,13 @@ in {
         else
           riverctl focus-output eDP-1
           riverctl set-focused-tags 1
-          footclient tmux new-session -A -s main &
+          foot tmux new-session -A -s main &
           sleep 0.5
           riverctl set-focused-tags 2
           chromium &
           sleep 0.8
           riverctl set-focused-tags 4
-          footclient --app-id btm-foot -e btm &
+          foot --app-id btm-foot -e btm &
           sleep 0.5
           riverctl set-focused-tags 2
         fi
