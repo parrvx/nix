@@ -6,7 +6,10 @@
   networking.hostName = "s145";
 
   # Enable networking
-  networking.networkmanager.enable = true;
+  networking.networkmanager = {
+    enable = true;
+    wifi.powersave = false;
+  };
 
   # Enable CUPS printing service
   services.printing.enable = true;

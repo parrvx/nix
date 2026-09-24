@@ -94,7 +94,7 @@ in {
       riverctl map normal $mod+Alt = spawn 'pulsemixer --change-volume +5'
       riverctl map normal $mod+Alt - spawn 'pulsemixer --change-volume -5'
       riverctl map normal $mod+Alt 0 spawn 'pulsemixer --toggle-mute'
-      riverctl map normal Super+Shift Return spawn 'footclient tmux new-session -A -s main'
+      riverctl map normal Super+Shift Return spawn 'foot'
 
       # Passage secret generator mapping
       riverctl map normal $mod+Shift P spawn '${passageMenu}/bin/passage-menu'

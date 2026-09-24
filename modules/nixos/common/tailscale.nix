@@ -1,6 +1,6 @@
 {pkgs, ...}: {
   # Enable the Tailscale daemon service
-  services.tailscale.enable = false;
+  services.tailscale.enable = true;
 
   # Open Tailscale interface and standard UDP port in the firewall
   networking.firewall = {
