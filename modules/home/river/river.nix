@@ -38,40 +38,12 @@ in {
       # =========================================================================
       # 2. TAG BINDING RULES
       # =========================================================================
-      riverctl rule-add -app-id "firefox" tags 2
+      # riverctl rule-add -app-id "firefox" tags 2
 
       # =========================================================================
       # 3. AUTOSTART SEQUENCING
       # =========================================================================
-      riverctl spawn 'bash -c "
-        if wlr-randr | grep -q \"HDMI-A-1\"; then
-          riverctl focus-output eDP-1
-          riverctl set-focused-tags 1
-          foot --app-id btm-foot -e btm &
-          sleep 0.8
-          riverctl focus-output HDMI-A-1
-          riverctl set-focused-tags 1
-          foot tmux new-session -A -s main &
-          sleep 0.8
-          riverctl set-focused-tags 2
-          chromium &
-          sleep 1.2
-          riverctl focus-output HDMI-A-1
-          riverctl set-focused-tags 2
-        else
-          riverctl focus-output eDP-1
-          riverctl set-focused-tags 1
-          foot tmux new-session -A -s main &
-          sleep 0.5
-          riverctl set-focused-tags 2
-          chromium &
-          sleep 0.8
-          riverctl set-focused-tags 4
-          foot --app-id btm-foot -e btm &
-          sleep 0.5
-          riverctl set-focused-tags 2
-        fi
-      "'
+      riverctl spawn 'bash -c "chromium"'
 
       # =========================================================================
       # 4. INPUT DEVICES & BEHAVIOR
