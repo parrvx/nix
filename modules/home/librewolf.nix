@@ -1,0 +1,93 @@
+{pkgs, ...}: {
+  programs.librewolf = {
+    enable = true;
+    profiles.default = {
+      id = 0;
+      name = "default";
+      isDefault = true;
+      settings = {
+        # --- 1. DARK MODE ENFORCEMENT ---
+        "layout.css.prefers-color-scheme.content-override" = 0;
+
+        # --- 2. RAM & CPU OPTIMIZATIONS ---
+        "dom.ipc.processCount" = 1;
+        "dom.ipc.processCount.webIsolated" = 1;
+        "browser.tabs.unloadOnLowMemory" = true;
+        "gfx.webrender.all" = true;
+        "media.hardware-video-decoding.enabled" = true;
+        "browser.sessionstore.interval" = 120000;
+
+        # --- 3. UI CUSTOMIZATIONS & TELEMETRY DISABLEMENT ---
+        "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
+        "datareporting.healthreport.uploadEnabled" = false;
+        "datareporting.policy.dataSubmissionEnabled" = false;
+        "toolkit.telemetry.enabled" = false;
+        "browser.newtabpage.activity-stream.showSponsored" = false;
+        "browser.newtabpage.activity-stream.showSponsoredTopSites" = false;
+        "browser.newtabpage.activity-stream.feeds.section.topstories" = false;
+        "browser.newtabpage.activity-stream.feeds.snippets" = false;
+
+        # --- 4. DISABLE PICTURE-IN-PICTURE (PiP) ---
+        "media.videocontrols.picture-in-picture.video-toggle.enabled" = false;
+        "media.videocontrols.picture-in-picture.display-text-tracks.enabled" = false;
+        "media.videocontrols.picture-in-picture.urlbar-button.enabled" = false;
+
+        #--- 5. ADDITIONAL EXTREME CPU/RAM SAVINGS ---
+        "browser.cache.disk.enable" = true;
+        "browser.cache.memory.max_entry_size" = 2048;
+
+        #--- 6. ENABLE DRM ---
+        "media.eme.enabled" = true;
+        "media.gmp-widevinecdm.visible" = true;
+        "media.gmp-widevinecdm.enabled" = true;
+      };
+
+      # Minimal userChrome.css styling
+      userChrome = ''
+        /* 1. Hide default tab bar */
+        #TabsToolbar {
+          visibility: collapse !important;
+        }
+        /* 2. Top bar styling */
+        :root {
+          --toolbar-bgcolor: #1c1b22 !important;
+          --lwt-accent-color: #1c1b22 !important;
+          --urlbar-min-height: 22px !important;
+        }
+        /* 3. Compact navigation/URL bar height */
+        #nav-bar {
+          margin: 0 !important;
+          padding: 1px 2px !important;
+          max-height: 28px !important;
+          min-height: 28px !important;
+        }
+        #urlbar-container {
+          --urlbar-container-height: 22px !important;
+          padding-top: 0px !important;
+          padding-bottom: 0px !important;
+        }
+        #urlbar {
+          min-height: 22px !important;
+          max-height: 22px !important;
+          top: 0 !important;
+          font-size: 11px !important;
+        }
+        #urlbar-background {
+          border-radius: 4px !important;
+        }
+        /* 4. Adjust internal icons and buttons for compact UI */
+        #nav-bar .toolbarbutton-1 {
+          padding: 1px !important;
+        }
+        #urlbar-input-container {
+          padding-block: 0px !important;
+          height: 22px !important;
+        }
+        .urlbar-icon {
+          width: 14px !important;
+          height: 14px !important;
+        }
+      '';
+    };
+  };
+}

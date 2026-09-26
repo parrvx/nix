@@ -7,7 +7,7 @@
   }: let
     tomlFormat = pkgs.formats.toml {};
     yaziToml = tomlFormat.generate "yazi.toml" {
-      mgr = {ratio = [1 1 6];};
+      mgr = {ratio = [1 2 5];};
       opener = {
         edit = [
           {
@@ -71,7 +71,7 @@
       mgr = {
         prepend_keymap = [
           {
-            on = ["g" "t"];
+            on = ["g" "i"];
             run = "shell lazygit --block --confirm";
             desc = "Open lazygit";
           }
@@ -82,18 +82,13 @@
           }
           {
             on = ["n" "e"];
-            run = "shell 'cd ~/zk && hx' --block --confirm";
+            run = "shell 'hx' --block --confirm";
             desc = "Open Helix";
           }
           {
             on = ["n" "n"];
-            run = "shell 'cd ~/zk && hx \"$(zk new --dir -p)\"' --block --confirm";
+            run = "shell 'cd ~/zk/notes && hx \"$(zk new --dir -p)\"' --block --confirm";
             desc = "New Note (zk)";
-          }
-          {
-            on = ["n" "d"];
-            run = "shell 'cd ~/zk && hx \"$(zk new --group journal -p)\"' --block --confirm";
-            desc = "New Daily Note (zk)";
           }
           {
             on = ["n" "f"];

@@ -26,8 +26,6 @@
     # jujutsu
     aichat
     ouch
-    vim
-    vis
     anki
     cachix
     nil
