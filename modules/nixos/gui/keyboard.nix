@@ -1,4 +1,4 @@
-{pkgs, ...}: {
+{...}: {
   hardware.uinput.enable = true;
   services.kanata = {
     enable = true;
@@ -6,10 +6,11 @@
       matrix-input = {
         config = ''
           (defsrc
-            grv  1 2 3 4 5 6 7 8 9 0 - =
-            tab  q w e r t y u i o p [ ] \
-            caps a s d f g h j k l ; '
-            lsft z x c v b n m , . / rsft
+            grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
+            tab  q    w    e    r    t    y    u    i    o    p    [    ]    \
+            caps a    s    d    f    g    h    j    k    l    ;    '    ret
+            lsft z    x    c    v    b    n    m    ,    .    /    rsft
+            lctl lmet lalt           spc            ralt rmet rctl
           )
 
           (defvar
@@ -21,50 +22,44 @@
           ;; 1. BASE LAYER (QWERTY)
           ;; =========================================================================
           (deflayer base
-            grv  1 2 3 4 5 6 7 8 9 0 - =
-            tab  q w e r t y u i o p [ ] \
-            (tap-hold $tap-timeout $hold-timeout esc (layer-toggle mods)) a s d f g h j k l ; '
-            lsft z x c v b n m , . / rsft
+            grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
+            tab  q    w    e    r    t    y    u    i    o    p    [    ]    \
+            (tap-hold $tap-timeout $hold-timeout esc (layer-toggle mods)) a    s    d    f    g    h    j    k    l    ;    '    ret
+            lsft z    x    c    v    b    n    m    ,    .    /    rsft
+            lctl lmet lalt           spc            ralt rmet rctl
           )
 
           ;; =========================================================================
-          ;; 2. CANARY LAYER
+          ;; 2. matrix LAYER
           ;; =========================================================================
-          (deflayer canary
-            grv  1 2 3 4 5 6 7 8 9 0 - =
-            tab  w l y m k z f o u ' [ ] \
-            (tap-hold $tap-timeout $hold-timeout esc (layer-toggle mods-canary)) c r s t g p n e i a ;
-            lsft q j v d b x h / , . rsft
+          (deflayer matrix
+            grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
+            tab  q    w    e    r    t    y    u    i    o    p    [    ]    \
+            (tap-hold $tap-timeout $hold-timeout esc (layer-toggle mods)) a    s    d    f    g    h    j    k    l    ;    '    ret
+            lsft z    x    c    v    b    n    m    ,    .    /    rsft
+            lctl lmet lalt           spc            ralt rmet rctl
           )
 
           ;; =========================================================================
-          ;; 3. MODS LAYER (Estando no QWERTY -> Caps + C ativa Canary)
+          ;; 3. MODS LAYER
           ;; =========================================================================
           (deflayer mods
-            _    _ _ _ _ _ _ _ _ _ _ _ _
-            _    (layer-switch numpad) _ _ _ _ _ _ _ _ _ _ _ _
-            _    lmet lalt lctl lsft _ _ _ _ _ _ _
-            _    _ _ (layer-switch canary) _ _ _ _ _ _ _ _
+            grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
+            tab  q    w    e    r    t    y    7    8    9    +    [    ]    \
+            (tap-hold $tap-timeout $hold-timeout esc (layer-toggle base)) a    s    d    f    g    h    4    5    6    -    S-8    ret
+            lsft z    x    (layer-switch matrix)    v    b    0    1    2    3    /    rsft
+            lctl lmet lalt           spc            ralt rmet rctl
           )
 
           ;; =========================================================================
-          ;; 4. MODS LAYER (Estando no Canary -> Caps + C volta para QWERTY)
+          ;; 4. MODS LAYER (Estando no matrix -> Caps + C volta para QWERTY)
           ;; =========================================================================
-          (deflayer mods-canary
-            _    _ _ _ _ _ _ _ _ _ _ _ _
-            _    (layer-switch numpad) _ _ _ _ _ _ _ _ _ _ _ _
-            _    lmet lalt lctl lsft _ _ _ _ _ _ _
-            _    _ _ (layer-switch base) _ _ _ _ _ _ _ _
-          )
-
-          ;; =========================================================================
-          ;; 5. NUMPAD LAYER
-          ;; =========================================================================
-          (deflayer numpad
-            _    _ _ _ _ _ _ _ _ _ _ _ _
-            _    (layer-switch base) _ _ _ _ kp/ kp* kp- kp7 kp8 kp9 kp+ _
-            _    _ _ _ _ _ kp4 kp5 kp6 kp. _ _
-            _    _ _ _ _ _ kp0 kp1 kp2 kp. _ _
+          (deflayer mods-matrix
+            grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
+            tab  q    w    e    r    t    y    7    8    9    +    [    ]    \
+            (tap-hold $tap-timeout $hold-timeout esc (layer-toggle base)) a    s    d    f    g    h    4    5    6    -    S-8    ret
+            lsft z    x    (layer-switch matrix)    v    b    0    1    2    3    /    rsft
+            lctl lmet lalt           spc            ralt rmet rctl
           )
         '';
       };
