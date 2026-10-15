@@ -32,7 +32,7 @@
         ];
         pdf = [
           {
-            run = "zathura \"$@\"";
+            run = "sioyek \"$@\"";
             orphan = true;
             for = "unix";
           }
@@ -121,7 +121,7 @@
           zk
           mpv
           imv
-          zathura
+          sioyek
           config.packages.myhelix
         ])} \
           --set YAZI_CONFIG_HOME ${configDir}

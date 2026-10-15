@@ -16,6 +16,7 @@
         mouse = false;
         idle-timeout = 50;
         auto-completion = true;
+        search.smart-case = false;
         completion-trigger-len = 1;
         soft-wrap.enable = true;
         cursor-shape = {
@@ -31,9 +32,8 @@
     };
     languagesToml = tomlFormat.generate "languages.toml" {
       language-server = {
-        zk = {
-          command = "zk";
-          args = ["lsp"];
+        markdown-oxide = {
+          command = "markdown-oxide";
         };
         nil = {
           command = "nil";
@@ -46,8 +46,8 @@
       language = [
         {
           name = "markdown";
-          language-servers = ["zk"];
-          roots = [".zk" ".git"];
+          language-servers = ["markdown-oxide"];
+          roots = [".obsidian"];
         }
         {
           name = "nix";
@@ -59,7 +59,6 @@
         }
       ];
     };
-
     # 2. XDG_CONFIG_HOME structure generated in the Nix Store
     helixConfigDir = pkgs.runCommand "helix-config-dir" {} ''
       mkdir -p $out/helix
@@ -76,7 +75,7 @@
         wrapProgram $out/bin/hx \
           --set XDG_CONFIG_HOME "${helixConfigDir}" \
           --prefix PATH : ${lib.makeBinPath (with pkgs; [
-          zk
+          markdown-oxide
           nil
           pyright
           rust-analyzer

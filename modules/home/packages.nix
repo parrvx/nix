@@ -22,7 +22,6 @@
     steam-run
     fd
     sd
-    zk
     # jujutsu
     aichat
     ouch
@@ -33,6 +32,8 @@
     nixpkgs-fmt
     nodejs
     termdown
+    visidata
+    markdown-oxide
 
     # Completions & Prompts
 
@@ -46,11 +47,12 @@
     yt-dlp
 
     ###### Custom Standalone Package Wrappers
-    myzathura
+    # myzathura
     myyazi
     myiamb
     myhelix
     mynvim
+    mysioyek
   ];
 
   programs = {
