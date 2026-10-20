@@ -29,6 +29,7 @@
   environment.systemPackages = with pkgs; [
     quickemu # CLI tool to quickly download and launch optimized VMs
     virt-manager # Includes virt-install and virsh for advanced VM management
+    virt-viewer
     spice-gtk # Graphical SPICE client for remote viewer and USB redirection
     usbredir # Tools for real-time USB device pass-through
   ];

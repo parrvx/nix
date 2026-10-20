@@ -74,6 +74,16 @@ in {
           cmd = "systemctl reboot";
         }
         {
+          key = "s";
+          desc = "Suspend";
+          cmd = "systemctl suspend";
+        }
+        {
+          key = "h";
+          desc = "Hibernate";
+          cmd = "systemctl hibernate";
+        }
+        {
           key = "t";
           desc = "Bottom";
           cmd = "foot -e btm";

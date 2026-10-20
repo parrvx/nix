@@ -17,12 +17,14 @@
         duckdb
       ]))
 
+    # Office
+    gimp
+
     omnix
     ripgrep
     steam-run
     fd
     sd
-    # jujutsu
     aichat
     ouch
     anki
