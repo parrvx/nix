@@ -3,14 +3,21 @@
   pkgs,
   ...
 }: {
-  networking.hostName = "s145";
+  networking = {
+    hostName = "s145";
 
-  # Enable networking
-  networking.networkmanager = {
-    enable = true;
-    wifi.powersave = false;
+    # Desativa IPv6 que está sofrendo drop de pacotes grandes
+    enableIPv6 = false;
+
+    # Enable networking
+    networkmanager = {
+      enable = true;
+      wifi.powersave = false;
+
+      # Garante o uso de DNSs rápidos e confiáveis
+      insertNameservers = ["8.8.8.8" "1.1.1.1"];
+    };
   };
-
   # Enable CUPS printing service
   services.printing.enable = true;
 

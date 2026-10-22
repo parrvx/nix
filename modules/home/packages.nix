@@ -24,6 +24,11 @@
     ripgrep
     steam-run
     fd
+    jq
+    fzf
+    bottom
+    tmate
+    bat
     sd
     aichat
     ouch
@@ -49,19 +54,9 @@
     yt-dlp
 
     ###### Custom Standalone Package Wrappers
-    # myzathura
     myyazi
     myiamb
     myhelix
-    mynvim
     mysioyek
   ];
-
-  programs = {
-    bat.enable = true;
-    fzf.enable = true;
-    jq.enable = true;
-    bottom.enable = true;
-    tmate.enable = true;
-  };
 }

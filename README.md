@@ -19,7 +19,7 @@ This repository contains my declarative, reproducible personal system and dotfil
 ### Core Applications & Secrets
 
 - **Text Editor**: Custom Helix package bundled with language servers (`zk`, `nil`, `pyright`, `rust-analyzer`, `bash-language-server`).
-- **File Management**: Yazi terminal file manager integrated with `ffmpeg`, `poppler`, `p7zip`, `fzf`, `lazygit`, `zk`, `mpv`, `imv`, and `zathura`.
+- **File Management**: Yazi terminal file manager integrated with `ffmpeg`, `poppler`, `p7zip`, `fzf`, `lazygit`, `zk`, `mpv`, `imv`, and `sioyek`.
 - **Browsers**: Firefox (configured with dark mode enforcement, low-RAM optimizations, uBlock Origin, and custom `userChrome.css`) and Chromium.
 - **Secrets & Passwords**: `sops-nix` with Age key encryption for system secrets, coupled with `passage` and a custom Fuzzel/Dmenu password picker (`passage-menu`).
 - **Smart Glasses Integration**: Background systemd user service executing `@evenrealities/even-terminal` for the Even Realities G2 glasses powered by Claude AI.

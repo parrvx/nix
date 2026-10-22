@@ -43,7 +43,7 @@ in {
       # =========================================================================
       # 3. AUTOSTART SEQUENCING
       # =========================================================================
-      riverctl spawn 'bash -c "chromium"'
+      # riverctl spawn 'bash -c "chromium"'
 
       # =========================================================================
       # 4. INPUT DEVICES & BEHAVIOR
@@ -157,8 +157,6 @@ in {
       riverctl border-color-unfocused 0x000000
       riverctl rule-add -app-id 'float*' -title 'foo' float
       riverctl rule-add -app-id "bar" csd
-      riverctl rule-add -app-id "org.pwmt.zathura" csd
-      riverctl rule-add -app-id "zathura" csd
 
       # Rivertile layout generator setup
       riverctl default-layout rivertile

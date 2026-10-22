@@ -6,7 +6,7 @@
 
   services = {
     openssh.enable = true;
-    flatpak.enable = true;
+    flatpak.enable = false;
   };
 
   # =========================================================================
@@ -54,7 +54,7 @@
   # 2. OLLAMA
   # =========================================================================
   services.ollama = {
-    enable = true;
+    enable = false;
     package = pkgs.ollama-rocm;
   };
   # =========================================================================
