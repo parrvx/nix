@@ -12,7 +12,7 @@
     after = ["network.target"];
     serviceConfig = {
       Type = "oneshot";
-      ExecStart = "${pkgs.bash}/bin/bash -c '${pkgs.curl}/bin/curl -s \"https://www.duckdns.org/update?domains=parrvx-qg&token=$(cat ${config.sops.secrets.duckdns_token.path})&ip=\"'";
+      ExecStart = "${pkgs.bash}/bin/bash -c '${pkgs.curl}/bin/curl -s \"https://www.duckdns.org/update?domains=claudio-qg&token=$(cat ${config.sops.secrets.duckdns_token.path})&ip=\"'";
     };
   };
 

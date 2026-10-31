@@ -146,7 +146,7 @@ in {
         {
           key = "d";
           desc = "Door Kickers";
-          cmd = "/home/parrvx/Games/gog/door-kickers/game/start-nix.sh";
+          cmd = "/home/claudio/Games/gog/door-kickers/game/start-nix.sh";
         }
         {
           key = "c";

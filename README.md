@@ -46,9 +46,9 @@ The layout adheres to `nixos-unified` autowiring patterns to organize system and
 │   └── scripts/
 │       └── terminal.sh     # Script to toggle Foot server/client headless mode
 ├── configurations/         # System and target machine definitions
-│   ├── nixos/s145/         # Host-specific NixOS configuration (Lenovo S145)
+│   ├── nixos/hp/         # Host-specific NixOS configuration (HP Beats)
 │   ├── nix-on-droid/droid/ # Android/Termux configuration via nix-on-droid
-│   └── user/parrvx.nix     # User identity and sops settings
+│   └── user/claudio.nix     # User identity and sops settings
 ├── modules/
 │   ├── flake/              # Flake outputs, wrappers, and devShells
 │   │   ├── apps/           # Custom program wrappers (Helix, Yazi, Zathura, Iamb)

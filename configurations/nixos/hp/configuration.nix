@@ -4,7 +4,7 @@
   ...
 }: {
   networking = {
-    hostName = "s145";
+    hostName = "hp";
 
     # Desativa IPv6 que está sofrendo drop de pacotes grandes
     enableIPv6 = false;
@@ -37,7 +37,7 @@
   sops = {
     defaultSopsFile = ../../../secrets/secrets.yaml; # Encrypted YAML target
     defaultSopsFormat = "yaml";
-    age.keyFile = "/home/parrvx/.config/sops/age/keys.txt"; # Host private key path
+    age.keyFile = "/home/claudio/.config/sops/age/keys.txt"; # Host private key path
   };
 
   # Password secret declaration
@@ -46,9 +46,9 @@
   };
 
   # User consuming hashed password managed via sops-nix
-  users.users.parrvx = {
+  users.users.claudio = {
     isNormalUser = true;
-    description = "parrvx";
+    description = "claudio";
     extraGroups = ["networkmanager" "wheel" "video" "docker"];
     hashedPasswordFile = config.sops.secrets.user_password.path;
   };
@@ -56,7 +56,7 @@
   # Passwordless sudo for rebuild automation scripts
   security.sudo.extraRules = [
     {
-      users = ["parrvx"];
+      users = ["claudio"];
       commands = [
         {
           command = "/run/current-system/sw/bin/nixos-rebuild";

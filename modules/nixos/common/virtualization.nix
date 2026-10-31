@@ -19,7 +19,7 @@
   virtualisation.spiceUSBRedirection.enable = true;
 
   # 3. Add system user to required virtualization groups to run QEMU/KVM without sudo
-  users.users.${config.me.username or "parrvx"}.extraGroups = [
+  users.users.${config.me.username or "claudio"}.extraGroups = [
     "kvm"
     "libvirtd"
     "qemu-libvirtd"

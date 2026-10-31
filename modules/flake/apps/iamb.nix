@@ -10,7 +10,7 @@
       default_profile = "user";
       profiles."user" = {
         url = "https://matrix.org";
-        user_id = "@parrvx:matrix.org";
+        user_id = "@claudio:matrix.org";
       };
     };
 
