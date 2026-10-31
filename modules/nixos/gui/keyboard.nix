@@ -52,7 +52,7 @@
           )
 
           ;; =========================================================================
-          ;; 4. MODS LAYER (Estando no matrix -> Caps + C volta para QWERTY)
+          ;; 4. MODS LAYER (Inside Matrix -> Caps + C switches back to QWERTY)
           ;; =========================================================================
           (deflayer mods-matrix
             grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc

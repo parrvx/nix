@@ -5,19 +5,17 @@
 }: {
   networking = {
     hostName = "s145";
-
-    # Desativa IPv6 que está sofrendo drop de pacotes grandes
+    # Disable IPv6 due to large packet dropping issues
     enableIPv6 = false;
-
     # Enable networking
     networkmanager = {
       enable = true;
       wifi.powersave = false;
-
-      # Garante o uso de DNSs rápidos e confiáveis
+      # Ensure reliable and fast upstream DNS resolvers
       insertNameservers = ["8.8.8.8" "1.1.1.1"];
     };
   };
+
   # Enable CUPS printing service
   services.printing.enable = true;
 

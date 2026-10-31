@@ -5,21 +5,20 @@
 }: {
   home.packages = with pkgs;
   with flake.inputs.self.packages.${pkgs.system}; [
-    # Binários diretos
+    # Direct standalone binaries
     duckdb
     typst
     ollama-rocm
 
-    # Python com as bibliotecas globais
+    # Python environment with global packages
     (python313.withPackages (ps:
       with ps; [
         polars
         duckdb
       ]))
 
-    # Office
+    # Office & productivity
     gimp
-
     omnix
     ripgrep
     steam-run

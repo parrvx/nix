@@ -1,17 +1,15 @@
 {pkgs, ...}: {
-  # Configuração enxuta dos XDG Portals para o River (Wayland)
+  # Streamlined XDG Portals configuration for River (Wayland)
   xdg.portal = {
     enable = true;
     wlr.enable = true;
-
-    # Define explicitamente a ordem de preferência dos portais
+    # Explicitly define portal preference order
     config = {
       common = {
         default = ["wlr" "gtk"];
       };
     };
-
-    # Adiciona apenas o backend GTK como fallback
+    # Include GTK backend as a fallback
     extraPortals = with pkgs; [
       xdg-desktop-portal-gtk
     ];

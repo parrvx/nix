@@ -3,10 +3,10 @@
   config,
   ...
 }: {
-  # Declaração do segredo no SOPS
+  # SOPS secret declaration
   sops.secrets.duckdns_token = {};
 
-  # Serviço systemd para atualizar o DuckDNS
+  # systemd service for DuckDNS dynamic DNS updates
   systemd.services.duckdns = {
     description = "DuckDNS Dynamic IP Update";
     after = ["network.target"];
@@ -16,9 +16,9 @@
     };
   };
 
-  # Timer para rodar o serviço a cada 5 minutos
+  # Timer to trigger DuckDNS updates every 5 minutes
   systemd.timers.duckdns = {
-    description = "Atualiza o DuckDNS a cada 5 minutos";
+    description = "Update DuckDNS every 5 minutes";
     wantedBy = ["timers.target"];
     timerConfig = {
       OnBootSec = "1min";
