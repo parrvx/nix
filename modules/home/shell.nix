@@ -16,9 +16,7 @@
       enable = true;
       shellAliases = {
         l = "ls -la";
-        yz = "yazi";
         lg = "lazygit";
-        v = "hx";
         ".." = "cd ..";
         "..." = "cd ../..";
         rb = "nh os switch ~/nix";
